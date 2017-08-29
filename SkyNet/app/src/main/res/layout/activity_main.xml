@@ -1,18 +1,78 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<android.widget.GridLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="gdl.dreamteam.skynet.MainActivity">
+    android:orientation="horizontal"
+    android:rowCount="5"
+    android:columnCount="2"
+    android:padding="20dp"
+    tools:context="gdl.dreamteam.skynet.Activities.MainActivity"
+    android:background="#000">
 
     <TextView
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Hello World!"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        android:layout_column="0"
+        android:layout_row="0"
+        android:layout_columnSpan="2"
+        android:text="My home"
+        android:textAlignment="center"
+        android:textSize="30sp"
+        android:paddingTop="20dp"
+        android:paddingBottom="10dp"
+        android:textColor="#fff"
+        android:fontFamily="sans-serif-condensed"
+        />
 
-</android.support.constraint.ConstraintLayout>
+    <ImageButton
+        android:id="@+id/image1"
+        android:layout_width="150dp"
+        android:layout_height="150dp"
+        android:layout_margin="20dp"
+        android:layout_column="0"
+        android:layout_row="1"
+        android:scaleType="fitStart"
+        app:srcCompat="@drawable/icon_1"
+        android:background="none"/>
+
+    <ImageButton
+        android:id="@+id/image2"
+        android:layout_width="150dp"
+        android:layout_height="150dp"
+        android:layout_margin="20dp"
+        android:scaleType="fitStart"
+        app:srcCompat="@drawable/icon_2"
+        android:layout_row="1"
+        android:layout_column="1"
+        android:background="none"/>
+
+
+    <ImageButton
+        android:id="@+id/image3"
+        android:layout_width="150dp"
+        android:layout_height="150dp"
+        android:layout_margin="20dp"
+        android:scaleType="fitStart"
+        app:srcCompat="@drawable/icon_3"
+        android:layout_row="3"
+        android:layout_column="0"
+        android:background="none"/>
+
+    <ImageButton
+        android:id="@+id/image4"
+        android:layout_width="150dp"
+        android:layout_height="150dp"
+        android:layout_margin="20dp"
+        android:scaleType="fitStart"
+        app:srcCompat="@drawable/icon_4"
+        android:layout_row="3"
+        android:layout_column="1"
+        android:background="none"/>
+
+
+
+
+
+</android.widget.GridLayout>
