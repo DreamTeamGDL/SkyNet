@@ -5,6 +5,5 @@ package gdl.dreamteam.skynet.Others
  */
 class Device (
     var id: String,
-    var type: String,
-    var data: IDeviceData
+    var data: AbstractDeviceData
 )

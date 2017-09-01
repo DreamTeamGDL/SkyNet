@@ -33,7 +33,9 @@ dependencies {
     kapt "com.android.databinding:compiler:$android_plugin_version"
     compile 'com.android.support.constraint:constraint-layout:1.0.2'
     testCompile 'junit:junit:4.12'
-    compile group: 'com.google.code.gson', name: 'gson', version: '2.7'
+    testCompile 'org.robolectric:robolectric:3.4.2'
+    compile group: 'com.google.code.gson', name: 'gson', version: '2.8.1'
+    compile group: 'org.danilopianini', name: 'gson-extras', version: '0.2.1'
     compile "org.jetbrains.kotlin:kotlin-stdlib-jre7:$kotlin_version"
 }
 repositories {

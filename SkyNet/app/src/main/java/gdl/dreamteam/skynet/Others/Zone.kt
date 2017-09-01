@@ -6,4 +6,9 @@ package gdl.dreamteam.skynet.Others
 class Zone (
     var name: String,
     var clients: Array<Client>
-)
+) {
+    override fun equals(other: Any?): Boolean {
+        val that = other as Zone
+        return this.name == that.name
+    }
+}
