@@ -20,7 +20,7 @@ import java.util.*
 class SQLRepositoryTest {
 
     private lateinit var zone: Zone
-    private lateinit var repo: SQLRepository
+    private lateinit var repo: IDataRepository
 
     @Before
     fun setup() {
@@ -36,19 +36,19 @@ class SQLRepositoryTest {
                 ))
             ))
         )
-        (zone.clients[0].devs[0].data as Fan).status = true
+        (zone.clients[0].devices[0].data as Fan).status = true
     }
 
     @Test
     fun setZone() {
-        var result = repo.addZone(zone)
+        val result = repo.addZone(zone)
         assertTrue(result)
     }
 
     @Test
     fun getZone() {
         setZone()
-        var repoZone: Zone? = repo.getZone("room1")
+        val repoZone: Zone? = repo.getZone("room1")
 
         assertNotNull(repoZone)
 
@@ -58,9 +58,9 @@ class SQLRepositoryTest {
     @Test
     fun deleteZone() {
         setZone()
-        var result: Boolean = repo.deleteZone("room1")
+        val result: Boolean = repo.deleteZone("room1")
         assertTrue(result)
-        var repoZone: Zone? = repo.getZone("room1")
+        val repoZone: Zone? = repo.getZone("room1")
         assertNull(repoZone)
     }
 
@@ -68,9 +68,10 @@ class SQLRepositoryTest {
     fun updateZone() {
         setZone()
         zone.name = "room2"
-        var result: Boolean = repo.updateZone("room1", zone)
+        val result: Boolean = repo.updateZone("room1", zone)
         assertTrue(result)
-        var zone: Zone? = repo.getZone("room2")
+        val zone: Zone? = repo.getZone("room2")
+        assertNotNull(zone)
         assertEquals(this.zone, zone)
     }
 

@@ -4,6 +4,7 @@ package gdl.dreamteam.skynet.Others
 import android.content.Context
 import android.database.sqlite.SQLiteDatabase
 import android.database.sqlite.SQLiteOpenHelper
+import android.util.Log
 import com.google.gson.Gson
 import com.google.gson.GsonBuilder
 import com.google.gson.typeadapters.RuntimeTypeAdapterFactory
@@ -42,15 +43,15 @@ class SQLRepository constructor (
     }
 
     override fun onCreate(db: SQLiteDatabase?) {
-        var query = "Create Table Zones ( " +
+        val query = "Create Table Zones ( " +
                     "Name Text Primary Key, " +
                     "Data Blob)"
         db?.execSQL(query)
     }
 
     override fun onUpgrade(db: SQLiteDatabase?, p1: Int, p2: Int) {
-        var query = "Drop Database If Exists ?"
-        var args = arrayOf("Zones")
+        val query = "Drop Database If Exists ?"
+        val args = arrayOf("Zones")
         db?.execSQL(query, args)
     }
 
@@ -66,7 +67,7 @@ class SQLRepository constructor (
     }
 
     override fun getZone(name: String): Zone? {
-        var query = "Select data From Zones Where name = \"$name\""
+        val query = "Select data From Zones Where name = \"$name\""
         val cursor = readableDatabase.rawQuery(query, null)
         if (cursor.moveToFirst()) {
             val rawJson: ByteArray = cursor.getBlob(0)
@@ -79,14 +80,22 @@ class SQLRepository constructor (
 
     override fun deleteZone(name: String): Boolean {
         val sql = "Delete From Zones Where Name = ?"
-        var sqlStatement = writableDatabase.compileStatement(sql)
+        val sqlStatement = writableDatabase.compileStatement(sql)
         sqlStatement.clearBindings()
         sqlStatement.bindString(1, name)
         return sqlStatement.executeUpdateDelete() != -1
     }
 
     override fun updateZone(name: String, zone: Zone): Boolean {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+        val sql = "Update Zones Set Data = ?, Name = ? Where Name = ?"
+        val sqlStatement = writableDatabase.compileStatement(sql)
+        sqlStatement.clearBindings()
+        val json = gson.toJson(zone, Zone::class.java)
+        val payload = Charsets.UTF_8.encode(json).array()
+        sqlStatement.bindBlob(1, payload)
+        sqlStatement.bindString(2, zone.name)
+        sqlStatement.bindString(3, name)
+        return sqlStatement.executeUpdateDelete() != -1
     }
 
 }

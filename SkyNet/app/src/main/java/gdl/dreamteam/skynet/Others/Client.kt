@@ -6,5 +6,5 @@ package gdl.dreamteam.skynet.Others
 class Client (
     var name: String,
     var alias: String,
-    var devs: Array<Device>
+    var devices: Array<Device>
 )
