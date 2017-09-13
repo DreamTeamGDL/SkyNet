@@ -11,7 +11,7 @@ class RestRepositoryTest {
     @Test
     fun getZone() {
         val repo = RestRepository()
-        val zone: Zone? = repo.getZone("")
+        val zone: Zone? = repo.getZone("").get()
     }
 
 }

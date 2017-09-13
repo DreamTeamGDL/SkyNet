@@ -9,6 +9,8 @@ import com.google.gson.Gson
 import com.google.gson.GsonBuilder
 import com.google.gson.typeadapters.RuntimeTypeAdapterFactory
 import java.nio.ByteBuffer
+import java.util.concurrent.CompletableFuture
+import java.util.concurrent.Future
 
 
 /**
@@ -55,7 +57,7 @@ class SQLRepository constructor (
         db?.execSQL(query, args)
     }
 
-    override fun addZone(zone: Zone): Boolean {
+    override fun addZone(zone: Zone): CompletableFuture<Boolean> {
         val json = gson.toJson(zone, Zone::class.java)
         val payload = Charsets.UTF_8.encode(json).array()
         val sql = "Insert Into Zones (Name, Data) Values(?, ?);"
@@ -63,30 +65,32 @@ class SQLRepository constructor (
         sqlStatement.clearBindings()
         sqlStatement.bindString(1, zone.name)
         sqlStatement.bindBlob(2, payload)
-        return sqlStatement.executeInsert() != -1L
+        return CompletableFuture.completedFuture(sqlStatement.executeInsert() != -1L)
     }
 
-    override fun getZone(name: String): Zone? {
+    override fun getZone(name: String): CompletableFuture<Zone?> {
         val query = "Select data From Zones Where name = \"$name\""
         val cursor = readableDatabase.rawQuery(query, null)
         if (cursor.moveToFirst()) {
             val rawJson: ByteArray = cursor.getBlob(0)
             var json = Charsets.UTF_8.decode(ByteBuffer.wrap(rawJson)).toString()
             json = json.replace("\u0000", "") // Clean null chars after utf decode
-            return gson.fromJson(json, Zone::class.java)
+            val result = gson.fromJson(json, Zone::class.java)
+            return CompletableFuture.completedFuture(result)
         }
-        return null
+        return CompletableFuture.completedFuture(null)
     }
 
-    override fun deleteZone(name: String): Boolean {
+    override fun deleteZone(name: String): CompletableFuture<Boolean> {
         val sql = "Delete From Zones Where Name = ?"
         val sqlStatement = writableDatabase.compileStatement(sql)
         sqlStatement.clearBindings()
         sqlStatement.bindString(1, name)
-        return sqlStatement.executeUpdateDelete() != -1
+        val result = sqlStatement.executeUpdateDelete() != -1
+        return CompletableFuture.completedFuture(result)
     }
 
-    override fun updateZone(name: String, zone: Zone): Boolean {
+    override fun updateZone(name: String, zone: Zone): CompletableFuture<Boolean> {
         val sql = "Update Zones Set Data = ?, Name = ? Where Name = ?"
         val sqlStatement = writableDatabase.compileStatement(sql)
         sqlStatement.clearBindings()
@@ -95,7 +99,8 @@ class SQLRepository constructor (
         sqlStatement.bindBlob(1, payload)
         sqlStatement.bindString(2, zone.name)
         sqlStatement.bindString(3, name)
-        return sqlStatement.executeUpdateDelete() != -1
+        val result =  sqlStatement.executeUpdateDelete() != -1
+        return CompletableFuture.completedFuture(result)
     }
 
 }

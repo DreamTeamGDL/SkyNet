@@ -32,23 +32,23 @@ class SQLRepositoryTest {
                 "aosiherwela",
                 arrayOf(Device(
                     UUID.randomUUID().toString(),
-                    Fan(25.2f, 0.45f, 1)
+                    "Fan"//Fan(25.2f, 0.45f, 1)
                 ))
             ))
         )
-        (zone.clients[0].devices[0].data as Fan).status = true
+        //(zone.clients[0].devices[0].data as Fan).status = true
     }
 
     @Test
     fun setZone() {
-        val result = repo.addZone(zone)
+        val result = repo.addZone(zone).get()
         assertTrue(result)
     }
 
     @Test
     fun getZone() {
         setZone()
-        val repoZone: Zone? = repo.getZone("room1")
+        val repoZone: Zone? = repo.getZone("room1").get()
 
         assertNotNull(repoZone)
 
@@ -58,9 +58,9 @@ class SQLRepositoryTest {
     @Test
     fun deleteZone() {
         setZone()
-        val result: Boolean = repo.deleteZone("room1")
+        val result: Boolean = repo.deleteZone("room1").get()
         assertTrue(result)
-        val repoZone: Zone? = repo.getZone("room1")
+        val repoZone: Zone? = repo.getZone("room1").get()
         assertNull(repoZone)
     }
 
@@ -68,9 +68,9 @@ class SQLRepositoryTest {
     fun updateZone() {
         setZone()
         zone.name = "room2"
-        val result: Boolean = repo.updateZone("room1", zone)
+        val result: Boolean = repo.updateZone("room1", zone).get()
         assertTrue(result)
-        val zone: Zone? = repo.getZone("room2")
+        val zone: Zone? = repo.getZone("room2").get()
         assertNotNull(zone)
         assertEquals(this.zone, zone)
     }

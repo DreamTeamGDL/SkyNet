@@ -8,6 +8,7 @@ import java.io.InputStreamReader
 import java.net.HttpURLConnection
 import java.net.URL
 import java.util.concurrent.CompletableFuture
+import java.util.concurrent.Future
 import java.util.stream.Collector
 import java.util.stream.Collectors
 
@@ -31,29 +32,29 @@ class RestRepository : IDataRepository {
             .create()
     }
 
-    override fun addZone(zone: Zone): Boolean {
+    override fun addZone(zone: Zone): CompletableFuture<Boolean> {
         TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
     }
 
-    override fun getZone(name: String): Zone? {
-        val rawJson: String = CompletableFuture.supplyAsync {
+    override fun getZone(name: String): CompletableFuture<Zone?> {
+        return CompletableFuture.supplyAsync {
             val connection = URL("$url/zones").openConnection() as HttpURLConnection
             connection.requestMethod = "GET"
             connection.setRequestProperty("Accept", "application/json")
             val streamReader = InputStreamReader(connection.inputStream)
             val bufferedReader = BufferedReader(streamReader)
-            return@supplyAsync bufferedReader
+            val rawJson =  bufferedReader
                 .lines()
                 .collect(Collectors.joining())
-        }.get()
-        return gson.fromJson(rawJson, Zone::class.java)
+            return@supplyAsync gson.fromJson(rawJson, Zone::class.java)
+        }
     }
 
-    override fun deleteZone(name: String): Boolean {
+    override fun deleteZone(name: String): CompletableFuture<Boolean> {
         TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
     }
 
-    override fun updateZone(name: String, zone: Zone): Boolean {
+    override fun updateZone(name: String, zone: Zone): CompletableFuture<Boolean> {
         TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
     }
 
