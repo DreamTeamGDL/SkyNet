@@ -1,0 +1,260 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.widget.RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/colorNormal"
+    tools:context="gdl.dreamteam.skynet.Activities.ClientsActivity">
+
+
+    <!-- Title -->
+    <RelativeLayout
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:orientation="horizontal"
+        android:padding="5dip"
+        android:id="@+id/relativeLayout4"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentStart="true">
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/container4"
+            android:paddingBottom="10dp"
+            android:paddingTop="10dp">
+            <TextView
+                android:id="@+id/titleMain"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:text="Sala"
+                android:textColor="#040404"
+                android:textSize="30sp"
+                android:textStyle="bold"
+                android:typeface="sans"
+                android:textAlignment="center"/>
+        </RelativeLayout>
+    </RelativeLayout>
+
+
+    <!-- Fans -->
+    <RelativeLayout
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:padding="5dip"
+        android:id="@+id/relativeLayout"
+        android:layout_above="@+id/relativeLayout2"
+        android:layout_alignParentStart="true"
+        android:background="@color/colorNormal"
+        android:layout_marginTop="10dp"
+        android:layout_marginBottom="20dp">
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/container"
+            android:paddingBottom="10dp"
+            android:paddingTop="10dp">
+            <LinearLayout
+                android:id="@+id/thumbnail"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentLeft="true"
+                android:layout_marginLeft="15dp"
+                android:layout_marginRight="15dp"
+                android:padding="3dip">
+                <ImageView
+                    android:id="@+id/list_image"
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
+                    android:src="@drawable/icon_01"/>
+            </LinearLayout>
+            <TextView
+                android:id="@+id/title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Ventiladores"
+                android:textColor="#040404"
+                android:textSize="20sp"
+                android:textStyle="bold"
+                android:typeface="sans"
+                android:layout_centerVertical="true"
+                android:layout_toEndOf="@+id/thumbnail" />
+        </RelativeLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:layout_below="@+id/container"
+            android:layout_alignParentStart="true"
+            android:paddingLeft="66dp">
+            <TextView
+                android:id="@+id/textView2"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Principal"
+                android:padding="10dp"
+                android:textSize="15sp" />
+        </LinearLayout>
+    </RelativeLayout>
+
+
+    <!-- Lights -->
+    <RelativeLayout
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:padding="5dip"
+        android:id="@+id/relativeLayout2"
+        android:layout_centerVertical="true"
+        android:layout_alignParentStart="true"
+        android:background="@color/colorNormal"
+        android:layout_marginBottom="20dp">
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/container2"
+            android:background="@color/colorNormal"
+            android:paddingBottom="10dp"
+            android:paddingTop="10dp">
+            <LinearLayout
+                android:id="@+id/thumbnail2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentLeft="true"
+                android:layout_marginLeft="15dp"
+                android:layout_marginRight="15dp"
+                android:padding="3dip">
+                <ImageView
+                    android:id="@+id/list_image2"
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
+                    android:src="@drawable/icon_02"/>
+            </LinearLayout>
+            <TextView
+                android:id="@+id/title2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Luces"
+                android:textColor="#040404"
+                android:textSize="20sp"
+                android:textStyle="bold"
+                android:typeface="sans"
+                android:layout_centerVertical="true"
+                android:layout_toEndOf="@+id/thumbnail2" />
+        </RelativeLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:layout_below="@+id/container2"
+            android:layout_alignParentStart="true"
+            android:paddingLeft="66dp">
+            <TextView
+                android:id="@+id/textView22"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Principales"
+                android:padding="10dp"
+                android:textSize="15sp" />
+            <TextView
+                android:id="@+id/textView32"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Entrada"
+                android:padding="10dp"
+                android:textSize="15sp"/>
+            <TextView
+                android:id="@+id/textView42"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Pasillo"
+                android:padding="10dp"
+                android:textSize="15sp"/>
+            <TextView
+                android:id="@+id/textView52"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Escaleras"
+                android:padding="10dp"
+                android:textSize="15sp"/>
+        </LinearLayout>
+    </RelativeLayout>
+
+    <!-- Cameras -->
+    <RelativeLayout
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:padding="5dip"
+        android:id="@+id/relativeLayout3"
+        android:background="@color/colorNormal"
+        android:layout_below="@+id/relativeLayout2"
+        android:layout_alignParentStart="true"
+        android:layout_marginBottom="20dp">
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/container3"
+            android:background="@color/colorNormal"
+            android:paddingBottom="10dp"
+            android:paddingTop="10dp">
+            <LinearLayout
+                android:id="@+id/thumbnail3"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentLeft="true"
+                android:layout_marginLeft="15dp"
+                android:layout_marginRight="15dp"
+                android:padding="3dip">
+                <ImageView
+                    android:id="@+id/list_image3"
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
+                    android:src="@drawable/icon_03"/>
+            </LinearLayout>
+            <TextView
+                android:id="@+id/title3"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Cámaras"
+                android:textColor="#040404"
+                android:textSize="20sp"
+                android:textStyle="bold"
+                android:typeface="sans"
+                android:layout_centerVertical="true"
+                android:layout_toEndOf="@+id/thumbnail3" />
+
+        </RelativeLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:layout_below="@+id/container3"
+            android:layout_alignParentStart="true"
+            android:paddingLeft="66dp">
+
+            <TextView
+                android:id="@+id/textView23"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Principal"
+                android:padding="10dp"
+                android:textSize="15sp" />
+            <TextView
+                android:id="@+id/textView33"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Entrada"
+                android:padding="10dp"
+                android:textSize="15sp"/>
+        </LinearLayout>
+    </RelativeLayout>
+
+
+</android.widget.RelativeLayout>
