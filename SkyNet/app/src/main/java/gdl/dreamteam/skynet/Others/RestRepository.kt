@@ -5,7 +5,10 @@ import com.google.gson.GsonBuilder
 import com.google.gson.typeadapters.RuntimeTypeAdapterFactory
 import gdl.dreamteam.skynet.Exceptions.BadRequestException
 import gdl.dreamteam.skynet.Exceptions.InternalErrorException
+import gdl.dreamteam.skynet.Exceptions.UnauthorizedException
+import gdl.dreamteam.skynet.Models.*
 import java.io.BufferedReader
+import java.io.DataOutputStream
 import java.io.InputStreamReader
 import java.io.OutputStreamWriter
 import java.net.HttpURLConnection
@@ -37,13 +40,14 @@ class RestRepository : IDataRepository {
     override fun addZone(zone: Zone): CompletableFuture<Unit> {
         return CompletableFuture.supplyAsync {
             val json: String = gson.toJson(zone)
-            val connection = URL("$url/zone").openConnection() as HttpURLConnection
+            println(json)
+            val connection = URL("$url/zones/post").openConnection() as HttpURLConnection
             connection.requestMethod = "POST"
             connection.setRequestProperty("Content-Type", "application/json")
             connection.setRequestProperty("Accept", "application/json")
+            connection.doOutput = true
             val streamWriter = OutputStreamWriter(connection.outputStream)
             streamWriter.write(json)
-            streamWriter.flush()
             streamWriter.close()
             handleResponseCode(connection.responseCode) {}
         }
@@ -52,7 +56,7 @@ class RestRepository : IDataRepository {
     override fun getZone(name: String): CompletableFuture<Zone?> {
         return CompletableFuture.supplyAsync {
             val encodedName = urlEncode(name)
-            val connection = URL("$url/zone/$encodedName")
+            val connection = URL("$url/zones/get/$encodedName")
                 .openConnection() as HttpURLConnection
             connection.requestMethod = "GET"
             connection.setRequestProperty("Accept", "application/json")
@@ -70,7 +74,7 @@ class RestRepository : IDataRepository {
     override fun deleteZone(name: String): CompletableFuture<Unit> {
         return CompletableFuture.supplyAsync {
             val encodedName = urlEncode(name)
-            val connection = URL("$url/zone/$encodedName")
+            val connection = URL("$url/zone/get/$encodedName")
                 .openConnection() as HttpURLConnection
             connection.requestMethod = "DELETE"
             connection.setRequestProperty("Accept", "application/json")
@@ -90,9 +94,11 @@ class RestRepository : IDataRepository {
     }
 
     private fun <T> handleResponseCode(code: Int, handler: () -> T): T {
+        println(code)
         when(code) {
             HttpURLConnection.HTTP_BAD_REQUEST -> throw BadRequestException()
             HttpURLConnection.HTTP_INTERNAL_ERROR -> throw InternalErrorException()
+            HttpURLConnection.HTTP_UNAUTHORIZED -> throw UnauthorizedException()
             else -> return handler()
         }
     }

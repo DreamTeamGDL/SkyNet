@@ -1,8 +1,7 @@
 package gdl.dreamteam.skynet.Others
 
+import gdl.dreamteam.skynet.Models.Zone
 import java.util.concurrent.CompletableFuture
-import java.util.concurrent.Future
-
 /**
  * Created by christopher on 28/08/17.
  */

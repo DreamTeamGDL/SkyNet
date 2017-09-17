@@ -1,6 +1,10 @@
 package gdl.dreamteam.skynet.Others
 
 import gdl.dreamteam.skynet.BuildConfig
+import gdl.dreamteam.skynet.Models.Client
+import gdl.dreamteam.skynet.Models.Device
+import gdl.dreamteam.skynet.Models.Fan
+import gdl.dreamteam.skynet.Models.Zone
 import org.junit.Test
 
 import org.junit.Assert.*
@@ -25,14 +29,14 @@ class SQLRepositoryTest {
     @Before
     fun setup() {
         repo = SQLRepository(RuntimeEnvironment.application)
-        zone = Zone (
+        zone = Zone(
             "room1",
             arrayOf(Client(
                 "room1",
                 "aosiherwela",
                 arrayOf(Device(
                     UUID.randomUUID().toString(),
-                    "Fan"//Fan(25.2f, 0.45f, 1)
+                    Fan(25.2f, 0.45f, 1)
                 ))
             ))
         )
@@ -42,7 +46,6 @@ class SQLRepositoryTest {
     @Test
     fun setZone() {
         val result = repo.addZone(zone).get()
-        assertTrue(result)
     }
 
     @Test
@@ -58,8 +61,7 @@ class SQLRepositoryTest {
     @Test
     fun deleteZone() {
         setZone()
-        val result: Boolean = repo.deleteZone("room1").get()
-        assertTrue(result)
+        repo.deleteZone("room1").get()
         val repoZone: Zone? = repo.getZone("room1").get()
         assertNull(repoZone)
     }
@@ -68,8 +70,7 @@ class SQLRepositoryTest {
     fun updateZone() {
         setZone()
         zone.name = "room2"
-        val result: Boolean = repo.updateZone("room1", zone).get()
-        assertTrue(result)
+        repo.updateZone("room1", zone).get()
         val zone: Zone? = repo.getZone("room2").get()
         assertNotNull(zone)
         assertEquals(this.zone, zone)

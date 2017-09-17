@@ -4,13 +4,12 @@ package gdl.dreamteam.skynet.Others
 import android.content.Context
 import android.database.sqlite.SQLiteDatabase
 import android.database.sqlite.SQLiteOpenHelper
-import android.util.Log
 import com.google.gson.Gson
 import com.google.gson.GsonBuilder
 import com.google.gson.typeadapters.RuntimeTypeAdapterFactory
+import gdl.dreamteam.skynet.Models.*
 import java.nio.ByteBuffer
 import java.util.concurrent.CompletableFuture
-import java.util.concurrent.Future
 
 
 /**
@@ -57,7 +56,7 @@ class SQLRepository constructor (
         db?.execSQL(query, args)
     }
 
-    override fun addZone(zone: Zone): CompletableFuture<Boolean> {
+    override fun addZone(zone: Zone): CompletableFuture<Unit> {
         val json = gson.toJson(zone, Zone::class.java)
         val payload = Charsets.UTF_8.encode(json).array()
         val sql = "Insert Into Zones (Name, Data) Values(?, ?);"
@@ -65,7 +64,7 @@ class SQLRepository constructor (
         sqlStatement.clearBindings()
         sqlStatement.bindString(1, zone.name)
         sqlStatement.bindBlob(2, payload)
-        return CompletableFuture.completedFuture(sqlStatement.executeInsert() != -1L)
+        return CompletableFuture()
     }
 
     override fun getZone(name: String): CompletableFuture<Zone?> {
@@ -81,16 +80,16 @@ class SQLRepository constructor (
         return CompletableFuture.completedFuture(null)
     }
 
-    override fun deleteZone(name: String): CompletableFuture<Boolean> {
+    override fun deleteZone(name: String): CompletableFuture<Unit> {
         val sql = "Delete From Zones Where Name = ?"
         val sqlStatement = writableDatabase.compileStatement(sql)
         sqlStatement.clearBindings()
         sqlStatement.bindString(1, name)
         val result = sqlStatement.executeUpdateDelete() != -1
-        return CompletableFuture.completedFuture(result)
+        return CompletableFuture()
     }
 
-    override fun updateZone(name: String, zone: Zone): CompletableFuture<Boolean> {
+    override fun updateZone(name: String, zone: Zone): CompletableFuture<Unit> {
         val sql = "Update Zones Set Data = ?, Name = ? Where Name = ?"
         val sqlStatement = writableDatabase.compileStatement(sql)
         sqlStatement.clearBindings()
@@ -100,7 +99,7 @@ class SQLRepository constructor (
         sqlStatement.bindString(2, zone.name)
         sqlStatement.bindString(3, name)
         val result =  sqlStatement.executeUpdateDelete() != -1
-        return CompletableFuture.completedFuture(result)
+        return CompletableFuture()
     }
 
 }
