@@ -34,8 +34,7 @@
         android:layout_column="0"
         android:layout_row="1"
         android:scaleType="fitStart"
-        app:srcCompat="@drawable/i01_kitchen"
-        android:background="none"/>
+        app:srcCompat="@drawable/i01_kitchen"/>
     <TextView
         android:layout_width="200dp"
         android:layout_height="wrap_content"
@@ -59,8 +58,7 @@
         android:scaleType="fitStart"
         app:srcCompat="@drawable/i02_living_room"
         android:layout_row="1"
-        android:layout_column="1"
-        android:background="none"/>
+        android:layout_column="1"/>
     <TextView
         android:layout_width="200dp"
         android:layout_height="wrap_content"
@@ -84,8 +82,7 @@
         android:scaleType="fitStart"
         app:srcCompat="@drawable/i03_bathroom"
         android:layout_row="3"
-        android:layout_column="0"
-        android:background="none"/>
+        android:layout_column="0"/>
     <TextView
         android:layout_width="200dp"
         android:layout_height="wrap_content"
@@ -110,8 +107,7 @@
         android:scaleType="fitStart"
         app:srcCompat="@drawable/i04_main"
         android:layout_row="3"
-        android:layout_column="1"
-        android:background="none"/>
+        android:layout_column="1"/>
     <TextView
         android:layout_width="200dp"
         android:layout_height="wrap_content"
@@ -126,9 +122,5 @@
         android:layout_row="4"
         android:layout_column="1"
         android:scaleType="fitStart"/>
-
-
-
-
 
 </android.widget.GridLayout>
