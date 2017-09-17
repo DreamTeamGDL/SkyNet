@@ -4,7 +4,8 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:background="@color/colorNormal">
 
     <ScrollView
         android:layout_width="match_parent"
@@ -13,7 +14,6 @@
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:background="@color/colorNormal"
             tools:context="gdl.dreamteam.skynet.Activities.ClientsActivity">
 
 
@@ -27,24 +27,39 @@
                 android:id="@+id/relativeLayout"
                 android:layout_alignParentTop="true"
                 android:layout_alignParentStart="true">
-                <RelativeLayout
+                <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:orientation="vertical"
                     android:id="@+id/container4"
                     android:paddingBottom="10dp"
-                    android:paddingTop="10dp">
+                    android:paddingTop="10dp"
+                    android:layout_marginLeft="25dp"
+                    android:layout_marginRight="25dp">
                     <TextView
                         android:id="@+id/titleMain"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_centerVertical="true"
-                        android:text="Sala"
-                        android:textColor="#040404"
+                        android:text="Living Room"
+                        android:layout_weight="1"
+                        android:textColor="@color/colorPrimary"
                         android:textSize="30sp"
                         android:textStyle="bold"
                         android:typeface="sans"
                         android:textAlignment="center"/>
-                </RelativeLayout>
+                    <TextView
+                        android:id="@+id/titleMain2"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
+                        android:layout_weight="1"
+                        android:text="Area"
+                        android:textColor="@color/colorPrimary"
+                        android:textSize="30sp"
+                        android:typeface="sans"
+                        android:textAlignment="center"/>
+                </LinearLayout>
             </RelativeLayout>
 
 
@@ -84,7 +99,7 @@
                         android:id="@+id/title1"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Ventiladores"
+                        android:text="Fan"
                         android:textColor="#040404"
                         android:textSize="20sp"
                         android:textStyle="bold"
@@ -138,7 +153,7 @@
                         android:id="@+id/title2"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Luces"
+                        android:text="Lights"
                         android:textColor="#040404"
                         android:textSize="20sp"
                         android:textStyle="bold"
@@ -192,7 +207,7 @@
                         android:id="@+id/title3"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Cámaras"
+                        android:text="Cameras"
                         android:textColor="#040404"
                         android:textSize="20sp"
                         android:textStyle="bold"

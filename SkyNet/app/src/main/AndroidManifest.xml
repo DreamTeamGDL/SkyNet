@@ -10,16 +10,16 @@
         android:label="WatchDogs"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
-        android:theme="@style/AppThemeLogIn">
-        <activity android:name=".Activities.MainActivity">
+        android:theme="@style/AppTheme">
+        <activity android:name=".Activities.MainActivity" android:theme="@style/Theme.AppCompat.Light.NoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".Activities.ClientsActivity" android:theme="@style/AppTheme"></activity>
-        <activity android:name=".Activities.DeviceActivity" android:theme="@style/AppTheme"></activity>
-        <activity android:name=".Activities.ZonesActivity" android:theme="@style/AppTheme"></activity>
+        <activity android:name=".Activities.ClientsActivity"></activity>
+        <activity android:name=".Activities.DeviceActivity"></activity>
+        <activity android:name=".Activities.ZonesActivity"></activity>
 
     </application>
 

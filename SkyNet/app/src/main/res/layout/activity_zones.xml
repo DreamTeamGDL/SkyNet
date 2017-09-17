@@ -8,6 +8,7 @@
     android:rowCount="5"
     android:columnCount="2"
     android:padding="5dp"
+    android:background="@color/colorNormal"
     tools:context="gdl.dreamteam.skynet.Activities.ZonesActivity">
 
     <TextView
@@ -62,7 +63,7 @@
         android:layout_column="1"
         android:background="@android:color/transparent"/>
     <TextView
-        android:layout_width="wrap_content"
+        android:layout_width="200dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="1dp"
         android:layout_marginRight="1dp"
