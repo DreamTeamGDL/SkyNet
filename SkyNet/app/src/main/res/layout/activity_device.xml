@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/colorNormal"
     tools:context="gdl.dreamteam.skynet.Activities.ClientsActivity">
 
 
@@ -11,14 +12,14 @@
     <RelativeLayout
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
+        android:layout_marginTop="18dp"
         android:padding="5dip"
-        android:id="@+id/relativeLayout4"
+        android:id="@+id/relativeLayout"
         android:layout_alignParentTop="true"
         android:layout_alignParentStart="true">
         <LinearLayout
             android:id="@+id/thumbnail2"
-            android:orientation="horizontal"
+            android:orientation="vertical"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_alignParentLeft="true"
@@ -31,8 +32,8 @@
                 android:layout_height="wrap_content"
                 android:layout_centerVertical="true"
                 android:layout_weight="1"
-                android:text="Ventilador"
-                android:textColor="#040404"
+                android:text="Entrance"
+                android:textColor="@color/colorPrimary"
                 android:textSize="30sp"
                 android:textStyle="bold"
                 android:typeface="sans"
@@ -43,11 +44,21 @@
                 android:layout_height="wrap_content"
                 android:layout_centerVertical="true"
                 android:layout_weight="1"
-                android:text="Entrada Sala"
-                android:textColor="#040404"
+                android:text="Fan"
+                android:textColor="@color/colorPrimary"
                 android:textSize="30sp"
                 android:typeface="sans"
                 android:textAlignment="center"/>
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/thumbnail2"
+            android:layout_marginTop="30dp">
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="@android:color/darker_gray"/>
         </LinearLayout>
     </RelativeLayout>
 
@@ -58,10 +69,10 @@
         android:layout_height="wrap_content"
         android:orientation="horizontal"
         android:padding="5dip"
-        android:id="@+id/relativeLayout"
+        android:id="@+id/relativeLayout1"
         android:background="@color/colorNormal"
-        android:layout_marginTop="20dp"
-        android:layout_below="@+id/relativeLayout4"
+        android:layout_marginBottom="1dp"
+        android:layout_below="@+id/relativeLayout"
         android:layout_alignParentStart="true"
         android:layout_marginStart="6dp">
         <LinearLayout
@@ -79,7 +90,7 @@
                 android:id="@+id/title"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Temperatura"
+                android:text="Temperature"
                 android:layout_weight="1"
                 android:textColor="#040404"
                 android:textSize="20sp"
@@ -117,8 +128,8 @@
         android:padding="5dip"
         android:id="@+id/relativeLayout2"
         android:background="@color/colorNormal"
-        android:layout_marginTop="1dp"
-        android:layout_below="@+id/relativeLayout"
+        android:layout_marginBottom="1dp"
+        android:layout_below="@+id/relativeLayout1"
         android:layout_alignParentStart="true"
         android:layout_marginStart="6dp">
         <LinearLayout
@@ -136,7 +147,7 @@
                 android:id="@+id/title3"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Humedad"
+                android:text="Humidity"
                 android:layout_weight="1"
                 android:textColor="#040404"
                 android:textSize="20sp"
@@ -192,7 +203,7 @@
                 android:id="@+id/title7"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Estado"
+                android:text="Status"
                 android:layout_weight="1"
                 android:textColor="#040404"
                 android:textSize="20sp"
@@ -246,7 +257,7 @@
                 android:id="@+id/title8"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Velocidad"
+                android:text="Speed"
                 android:layout_weight="1"
                 android:textColor="#040404"
                 android:textSize="20sp"
