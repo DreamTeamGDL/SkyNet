@@ -8,7 +8,6 @@ import gdl.dreamteam.skynet.Exceptions.InternalErrorException
 import gdl.dreamteam.skynet.Exceptions.UnauthorizedException
 import gdl.dreamteam.skynet.Models.*
 import java.io.BufferedReader
-import java.io.DataOutputStream
 import java.io.InputStreamReader
 import java.io.OutputStreamWriter
 import java.net.HttpURLConnection
@@ -22,20 +21,19 @@ import java.util.stream.Collectors
  */
 class RestRepository : IDataRepository {
 
-    private var gson: Gson
-    private val url = "http://skynetgdl.azurewebsites.net/api"
-
-    init {
-        val typeAdapter = RuntimeTypeAdapterFactory
+    companion object {
+        private val typeAdapter = RuntimeTypeAdapterFactory
             .of(AbstractDeviceData::class.java, "type")
             .registerSubtype(Door::class.java)
             .registerSubtype(Fan::class.java)
             .registerSubtype(Light::class.java)
             .registerSubtype(Camera::class.java)
-        this.gson = GsonBuilder()
+        val gson: Gson = GsonBuilder()
             .registerTypeAdapterFactory(typeAdapter)
             .create()
     }
+
+    private val url = "http://skynetgdl.azurewebsites.net/api"
 
     override fun addZone(zone: Zone): CompletableFuture<Unit> {
         return CompletableFuture.supplyAsync {
