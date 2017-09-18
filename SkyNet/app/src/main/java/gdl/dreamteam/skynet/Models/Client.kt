@@ -1,4 +1,4 @@
-package gdl.dreamteam.skynet.Others
+package gdl.dreamteam.skynet.Models
 
 /**
  * Created by christopher on 28/08/17.
@@ -6,5 +6,5 @@ package gdl.dreamteam.skynet.Others
 class Client (
     var name: String,
     var alias: String,
-    var devs: Array<Device>
+    var devices: Array<Device>
 )

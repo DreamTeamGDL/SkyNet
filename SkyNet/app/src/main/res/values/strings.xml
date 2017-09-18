@@ -1,3 +1,5 @@
 <resources>
     <string name="app_name">SkyNet</string>
+    <string name="com_auth0_client_id">2enMxR64WAmAPBOAVVmiGg37RdONgNYX</string>
+    <string name="com_auth0_domain">skynetgdl.auth0.com</string>
 </resources>
