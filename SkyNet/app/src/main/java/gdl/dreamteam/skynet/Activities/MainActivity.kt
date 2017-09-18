@@ -27,12 +27,16 @@ class MainActivity : AppCompatActivity() {
                     Device("Hall", Light()),
                     Device("Entrance", Light()),
                     Device("Garden", Camera(""))
+                )),
+                Client("Rasperry", "Pi", arrayOf(
+                    Device("Hall", Fan(24.0f, 0.14f, 5))
                 ))
             )
         )
         val intent = Intent(this, ClientsActivity::class.java)
-        val rawZone = RestRepository.gson.toJson(zone)
-        intent.extras.putString("zone", rawZone)
+        val rawZone = RestRepository.gson.toJson(zone, zone::class.java)
+        println(rawZone)
+        intent.putExtra("zone", rawZone)
         startActivity(intent)
     }
 }

@@ -4,21 +4,22 @@ import android.content.Intent
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import android.view.LayoutInflater
-import android.view.View
-import android.widget.ArrayAdapter
 import android.widget.LinearLayout
-import android.widget.ListView
 import android.widget.TextView
-import gdl.dreamteam.skynet.Models.Camera
-import gdl.dreamteam.skynet.Models.Fan
-import gdl.dreamteam.skynet.Models.Light
-import gdl.dreamteam.skynet.Models.Zone
+import gdl.dreamteam.skynet.Models.*
 import gdl.dreamteam.skynet.Others.RestRepository
 
 import gdl.dreamteam.skynet.R
-import java.util.zip.Inflater
 
 class ClientsActivity : AppCompatActivity() {
+
+    companion object {
+        private val deviceTypes = arrayOf(
+            Fan::class.java.canonicalName,
+            Light::class.java.canonicalName,
+            Camera::class.java.canonicalName
+        )
+    }
 
     private val clients = ArrayList<LinearLayout>()
     private val values = ArrayList<List<String>>()
@@ -27,10 +28,7 @@ class ClientsActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_clients)
-
-        if (intent.hasExtra("zone")) {
-            loadElements(intent)
-        }
+        if (intent.hasExtra("zone")) loadElements(intent)
 
     }
 
@@ -51,11 +49,15 @@ class ClientsActivity : AppCompatActivity() {
         for (i in clients.indices){
             val layout = clients[i]
             val content = values[i]
+            val deviceType = deviceTypes[i]
             for (item in content){
                 val view = inflater.inflate(R.layout.item_clients, layout, false) as TextView
                 view.text = item
                 view.setOnClickListener {
-                    startActivity(Intent(this, DeviceActivity::class.java))
+                    val intent = Intent(this, DeviceActivity::class.java)
+                    val rawJson = RestRepository.gson.toJson(findDevice(zone, item, deviceType))
+                    intent.putExtra("device", rawJson)
+                    startActivity(intent)
                 }
                 layout.addView(view)
             }
@@ -72,6 +74,18 @@ class ClientsActivity : AppCompatActivity() {
             }
         }
         return result
+    }
+
+    fun findDevice(zone: Zone, name: String, type: String): Device? {
+        for (client in zone.clients) {
+            for (device in client.devices) {
+                val data = device.data
+                if (name == device.id && type == data.javaClass.canonicalName) {
+                    return device
+                }
+            }
+        }
+        return null
     }
 
 
