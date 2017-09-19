@@ -3,9 +3,11 @@ package gdl.dreamteam.skynet.Activities
 import android.databinding.DataBindingUtil
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
 import gdl.dreamteam.skynet.Bindings.AbstractDeviceBinding
 import gdl.dreamteam.skynet.Models.AbstractDeviceData
 import gdl.dreamteam.skynet.Models.Device
+import gdl.dreamteam.skynet.Others.LoginService
 import gdl.dreamteam.skynet.Others.RestRepository
 
 import gdl.dreamteam.skynet.R
@@ -16,6 +18,8 @@ class DeviceActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_device)
+
+        Log.wtf("access token", LoginService.accessToken)
 
         if (intent.hasExtra("device")) {
             val rawJson = intent.extras.getString("device")

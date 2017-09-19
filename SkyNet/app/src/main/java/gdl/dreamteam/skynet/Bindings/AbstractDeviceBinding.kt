@@ -7,13 +7,8 @@ import android.databinding.ObservableField
  */
 class AbstractDeviceBinding (deviceName: String, deviceType: String) {
 
-    var deviceName: ObservableField<String>
-    var deviceType: ObservableField<String>
-
-    init {
-        this.deviceName = ObservableField(deviceName)
-        this.deviceType = ObservableField(deviceType)
-    }
+    private var deviceName = ObservableField(deviceName)
+    private var deviceType = ObservableField(deviceType)
 
     var name: String
         get() = deviceName.get()

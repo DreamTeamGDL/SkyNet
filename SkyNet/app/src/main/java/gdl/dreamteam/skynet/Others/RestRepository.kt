@@ -4,6 +4,7 @@ import com.google.gson.Gson
 import com.google.gson.GsonBuilder
 import com.google.gson.typeadapters.RuntimeTypeAdapterFactory
 import gdl.dreamteam.skynet.Exceptions.BadRequestException
+import gdl.dreamteam.skynet.Exceptions.ForbiddenException
 import gdl.dreamteam.skynet.Exceptions.InternalErrorException
 import gdl.dreamteam.skynet.Exceptions.UnauthorizedException
 import gdl.dreamteam.skynet.Models.*
@@ -22,6 +23,7 @@ import java.util.stream.Collectors
 class RestRepository : IDataRepository {
 
     companion object {
+
         private val typeAdapter = RuntimeTypeAdapterFactory
             .of(AbstractDeviceData::class.java, "type")
             .registerSubtype(Door::class.java)
@@ -31,6 +33,19 @@ class RestRepository : IDataRepository {
         val gson: Gson = GsonBuilder()
             .registerTypeAdapterFactory(typeAdapter)
             .create()
+
+        fun <T> handleResponseCode(code: Int, handler: () -> T): T {
+            println(code)
+            when(code) {
+                HttpURLConnection.HTTP_BAD_REQUEST -> throw BadRequestException()
+                HttpURLConnection.HTTP_INTERNAL_ERROR -> throw InternalErrorException()
+                HttpURLConnection.HTTP_UNAUTHORIZED -> throw UnauthorizedException()
+                HttpURLConnection.HTTP_FORBIDDEN -> throw ForbiddenException()
+                else -> return handler()
+            }
+        }
+
+        fun urlEncode(item: String): String = URLEncoder.encode(item, "UTF-8")
     }
 
     private val url = "http://skynetgdl.azurewebsites.net/api"
@@ -90,17 +105,5 @@ class RestRepository : IDataRepository {
             handleResponseCode(connection.responseCode) {}
         }
     }
-
-    private fun <T> handleResponseCode(code: Int, handler: () -> T): T {
-        println(code)
-        when(code) {
-            HttpURLConnection.HTTP_BAD_REQUEST -> throw BadRequestException()
-            HttpURLConnection.HTTP_INTERNAL_ERROR -> throw InternalErrorException()
-            HttpURLConnection.HTTP_UNAUTHORIZED -> throw UnauthorizedException()
-            else -> return handler()
-        }
-    }
-
-    private fun urlEncode(item: String): String = URLEncoder.encode(item, "UTF-8")
 
 }
