@@ -58,7 +58,8 @@ object LoginService {
                 val rawJson = streamReader.readLines()
                     .stream()
                     .collect(Collectors.joining(""))
-                Log.wtf("auth json", rawJson)
+                streamReader.close()
+                connection.disconnect()
                 val loginResponseData = RestRepository.gson.fromJson(rawJson, LoginResponse::class.java)
                 this.credentials = loginResponseData
                 return@handleResponseCode this.credentials
