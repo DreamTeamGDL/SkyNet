@@ -5,7 +5,6 @@ import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
 import gdl.dreamteam.skynet.Bindings.AbstractDeviceBinding
-import gdl.dreamteam.skynet.Models.AbstractDeviceData
 import gdl.dreamteam.skynet.Models.Device
 import gdl.dreamteam.skynet.Others.LoginService
 import gdl.dreamteam.skynet.Others.RestRepository
@@ -26,7 +25,7 @@ class DeviceActivity : AppCompatActivity() {
             val device = RestRepository.gson.fromJson(rawJson, Device::class.java)
             val binding: DeviceBinding = DataBindingUtil.setContentView(this, R.layout.activity_device)
             binding.abstractDevice = AbstractDeviceBinding(
-                device.id,
+                device.name,
                 device.data.javaClass.simpleName
             )
         }
