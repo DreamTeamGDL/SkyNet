@@ -1,4 +1,4 @@
-package gdl.dreamteam.skynet.Others
+/*package gdl.dreamteam.skynet.Others
 
 import android.util.Log
 import com.microsoft.azure.servicebus.*
@@ -23,4 +23,4 @@ object QueueService {
             Log.d("MESSAGE_QUEUE", "Message sent")
         }
     }
-}
+}*/
