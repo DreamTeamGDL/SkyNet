@@ -4,6 +4,8 @@ import android.content.Intent
 import android.databinding.DataBindingUtil
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
+import android.os.Handler
+import android.os.Looper
 import android.util.Log
 import android.view.View
 import android.widget.Toast
@@ -19,12 +21,15 @@ import gdl.dreamteam.skynet.Others.LoginService
 import gdl.dreamteam.skynet.Others.RestRepository
 import gdl.dreamteam.skynet.R
 import gdl.dreamteam.skynet.databinding.MainBinding
+import java.util.concurrent.CompletableFuture
 import java.util.concurrent.ExecutionException
+import java.util.logging.Logger
 
 class MainActivity : AppCompatActivity() {
 
     private lateinit var binding: MainBinding
     private lateinit var dataRepository: IDataRepository
+    val handler = Handler(Looper.getMainLooper())
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -65,32 +70,35 @@ class MainActivity : AppCompatActivity() {
             longToast("Please put a password")
             return
         }
-
         LoginService.setup(applicationContext)
-        try {
-            LoginService.login(
-                binding.login.username as String,
-                binding.login.password as String
-            ).thenApply {
-                return@thenApply dataRepository.getZone("livingroom").get()
-            }.thenApply { zone ->
-                val intent = Intent(this, ClientsActivity::class.java)
-                val rawZone = RestRepository.gson.toJson(zone, Zone::class.java)
-                println(rawZone)
-                intent.putExtra("zone", rawZone)
+        LoginService.login(
+            binding.login.username as String,
+            binding.login.password as String
+        ).thenApply {
+            return@thenApply dataRepository.getZone("livingroom").get()
+        }.thenApply { zone ->
+            val intent = Intent(this, ClientsActivity::class.java)
+            val rawZone = RestRepository.gson.toJson(zone, Zone::class.java)
+            intent.putExtra("zone", rawZone)
+            handler.post {
                 startActivity(intent)
             }
-        } catch (e: ExecutionException) {
-            Log.wtf("Exception", e.cause.toString())
-            when(e.cause) {
+        }.exceptionally { throwable ->
+            Log.wtf("Exception", throwable.cause.toString())
+            when(throwable.cause) {
                 is UnauthorizedException, is ForbiddenException -> {
-                    shortToast("Please introduce valid credentials")
+                    handler.post {
+                        shortToast("Please introduce valid credentials")
+                    }
                 }
                 is InternalErrorException -> {
-                    shortToast("Uups, that was a server error, try again in a few moments")
+                    handler.post {
+                        shortToast("Uups, that was a server error, try again in a few moments")
+                    }
+                } else -> {
+                    return@exceptionally null
                 }
             }
-            return
         }
     }
 }
