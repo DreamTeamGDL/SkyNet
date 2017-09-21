@@ -1,26 +1,26 @@
-/*package gdl.dreamteam.skynet.Others
+
+package gdl.dreamteam.skynet.Others
 
 import android.util.Log
-import com.microsoft.azure.servicebus.*
-import com.microsoft.azure.servicebus.primitives.ConnectionStringBuilder
-import com.microsoft.azure.servicebus.primitives.ServiceBusException
+import com.microsoft.azure.storage.CloudStorageAccount
+import com.microsoft.azure.storage.queue.CloudQueue
+import com.microsoft.azure.storage.queue.CloudQueueMessage
+
 /**
  * Created by Don miguelon on 20/09/2017.
  */
 
 object QueueService {
 
-    lateinit var messageSender : IMessageSender
+    lateinit var queue : CloudQueue
 
     fun configure(connectionString : String, queueName : String){
-        messageSender = ClientFactory
-                .createMessageSenderFromConnectionStringBuilder(
-                        ConnectionStringBuilder(connectionString, queueName))
+        val account = CloudStorageAccount.parse(connectionString)
+        val cloudClient = account.createCloudQueueClient()
+        queue = cloudClient.getQueueReference(queueName)
     }
 
     fun sendMessage(message : String){
-        messageSender.sendAsync(Message(message)).thenRunAsync {
-            Log.d("MESSAGE_QUEUE", "Message sent")
-        }
+        queue.addMessage(CloudQueueMessage(message))
     }
-}*/
+}
