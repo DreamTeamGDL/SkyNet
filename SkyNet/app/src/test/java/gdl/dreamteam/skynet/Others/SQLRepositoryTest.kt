@@ -30,12 +30,15 @@ class SQLRepositoryTest {
     fun setup() {
         repo = SQLRepository(RuntimeEnvironment.application)
         zone = Zone(
+            UUID.randomUUID(),
             "room1",
             arrayOf(Client(
+                UUID.randomUUID(),
                 "room1",
                 "aosiherwela",
                 arrayOf(Device(
-                    UUID.randomUUID().toString(),
+                    UUID.randomUUID(),
+                    "",
                     Fan(25.2f, 0.45f, 1)
                 ))
             ))

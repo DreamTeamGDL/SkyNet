@@ -25,9 +25,11 @@ class RestRepositoryTest {
     @Test
     fun addZone() {
         val zone = Zone(
-            "zoneName", arrayOf(Client("device",
+            UUID.randomUUID(),
+            "zoneName", arrayOf(Client(UUID.randomUUID(), "device",
                 UUID.randomUUID().toString(),
                 arrayOf(Device(
+                    UUID.randomUUID(),
                     "fan1",
                     Fan(25.0f, 0.45f, 2)
                 ))
