@@ -6,6 +6,8 @@ import android.content.Intent
 import android.databinding.DataBindingUtil
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
+import android.os.Handler
+import android.os.Looper
 import android.support.v4.app.FragmentActivity
 import android.util.Log
 import android.widget.Toast
@@ -13,20 +15,21 @@ import gdl.dreamteam.skynet.Bindings.AbstractDeviceBinding
 import gdl.dreamteam.skynet.Bindings.DeviceLightsBinding
 import gdl.dreamteam.skynet.Fragments.DeviceFanFragment
 import gdl.dreamteam.skynet.Fragments.DeviceLightsFragment
-import gdl.dreamteam.skynet.Models.AbstractDeviceData
-import gdl.dreamteam.skynet.Models.Device
-import gdl.dreamteam.skynet.Models.Fan
-import gdl.dreamteam.skynet.Models.Light
+import gdl.dreamteam.skynet.Models.*
 import gdl.dreamteam.skynet.Others.LoginService
+import gdl.dreamteam.skynet.Others.QueueService
 import gdl.dreamteam.skynet.Others.RestRepository
 
 import gdl.dreamteam.skynet.R
 import gdl.dreamteam.skynet.databinding.DeviceBinding
+import java.util.*
+import java.util.concurrent.CompletableFuture
 
 class DeviceActivity : FragmentActivity(), DeviceFanFragment.OnFragmentInteractionListener, DeviceLightsFragment.OnFragmentInteractionListener {
 
     lateinit var fragment: Fragment
-
+    private lateinit var connectionString: String
+    private lateinit var queueName: String
 
     companion object {
         const val DEVICE_TYPE_FAN = "Fan"
@@ -38,13 +41,17 @@ class DeviceActivity : FragmentActivity(), DeviceFanFragment.OnFragmentInteracti
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_device)
 
+        connectionString = getString(R.string.queueConnectionString)
+        queueName = getString(R.string.queueName)
+        QueueService.configure(connectionString, queueName)
+
         Log.wtf("access token", LoginService.accessToken)
 
         if (intent.hasExtra("device")) {
             val rawJson = intent.extras.getString("device")
             val device = RestRepository.gson.fromJson(rawJson, Device::class.java)
             val binding: DeviceBinding = DataBindingUtil.setContentView(this, R.layout.activity_device)
-
+            // Log.wtf("DEVICE", rawJson)
             binding.abstractDevice = AbstractDeviceBinding(
                 device.name,
                 device.data.javaClass.simpleName
@@ -60,21 +67,26 @@ class DeviceActivity : FragmentActivity(), DeviceFanFragment.OnFragmentInteracti
         if(type.equals(DEVICE_TYPE_FAN)){
             val data = RestRepository.gson.toJson(device.data, Fan::class.java)
             fragment = DeviceFanFragment.newInstance(data)
-            transaction.add(R.id.fragmentContainer, fragment, type)
-            transaction.commit()
         }
         else if (type.equals(DEVICE_TYPE_LIGHTS)){
             val data = RestRepository.gson.toJson(device.data, Light::class.java)
-            Log.d("DEVICE ACT", data)
-
             fragment = DeviceLightsFragment.newInstance(data)
+        }
+
+        if (fragment != null){
             transaction.add(R.id.fragmentContainer, fragment, type)
             transaction.commit()
         }
+
     }
 
     override fun somethingHappened(message: String) {
-        Toast.makeText(this, message, Toast.LENGTH_SHORT).show();
+        val message = ActionMessage(1, UUID.randomUUID().toString(), message)
+        val rawJson = RestRepository.gson.toJson(message)
+        CompletableFuture.supplyAsync {
+            QueueService.sendMessage(rawJson)
+            Handler(Looper.getMainLooper()).post { finish() }
+        }
     }
 
 }

@@ -12,8 +12,12 @@ import android.support.annotation.Nullable
 import gdl.dreamteam.skynet.Models.Fan
 import android.databinding.DataBindingUtil
 import android.util.Log
+import android.widget.Button
 import gdl.dreamteam.skynet.Bindings.DeviceFanBinding
+import gdl.dreamteam.skynet.Models.ActionMessage
+import gdl.dreamteam.skynet.Others.QueueService
 import gdl.dreamteam.skynet.databinding.FanBinding
+import java.util.*
 
 
 /**
@@ -24,12 +28,7 @@ import gdl.dreamteam.skynet.databinding.FanBinding
 class DeviceFanFragment : Fragment() {
 
     private lateinit var mListener: OnFragmentInteractionListener
-
-
-    // Empty Constructor
-    fun DeviceFanFragment(){
-
-    }
+    private lateinit var binding: FanBinding
 
     // Factory method to create an instance of this fragment
     companion object {
@@ -38,6 +37,7 @@ class DeviceFanFragment : Fragment() {
         const val ARG_TEMPERATURE = "temperature"
         const val ARG_HUMIDITY = "humidity"
         const val ARG_SPEED = "speed"
+
 
         fun newInstance(data: String): DeviceFanFragment {
             Log.d("FRAGMENT", data)
@@ -56,15 +56,19 @@ class DeviceFanFragment : Fragment() {
     }
 
     override fun onCreate(savedInstanceState: Bundle?){
-        super.onCreate(savedInstanceState);
+        super.onCreate(savedInstanceState)
     }
 
     override fun onCreateView(inflater: LayoutInflater?,
                               @Nullable container: ViewGroup?,
                               @Nullable savedInstanceState: Bundle?): View? {
-
-        val binding: FanBinding = DataBindingUtil.inflate(inflater, R.layout.fragment_device_fan, container, false)
+        binding= DataBindingUtil.inflate(inflater, R.layout.fragment_device_fan, container, false)
         val view = binding.root
+
+        val button = view.findViewById<Button>(R.id.queueButton)
+        button.setOnClickListener {
+            mListener.somethingHappened("SPEED CHANGE ${binding.deviceFan.speed}")
+        }
 
         binding.deviceFan = DeviceFanBinding(
                 arguments.getBoolean(ARG_STATUS),
@@ -87,7 +91,6 @@ class DeviceFanFragment : Fragment() {
     override fun onDetach() {
         super.onDetach()
     }
-
 
     interface OnFragmentInteractionListener {
         fun somethingHappened(message: String)

@@ -14,7 +14,7 @@ object QueueService {
 
     lateinit var queue : CloudQueue
 
-    fun configure(connectionString : String, queueName : String){
+    fun configure(connectionString : String, queueName : String) {
         val account = CloudStorageAccount.parse(connectionString)
         val cloudClient = account.createCloudQueueClient()
         queue = cloudClient.getQueueReference(queueName)
