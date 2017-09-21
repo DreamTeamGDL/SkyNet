@@ -35,6 +35,26 @@ class MainActivity : AppCompatActivity() {
     }
 
     fun onLoginPress(view: View) {
+      /* 
+      Example of Zone
+      val zone = Zone(
+            "Living Room",
+            arrayOf(
+                Client("Dragon", "Board", arrayOf(
+                    Device("Entrance", Fan(10.0f, 0.24f, 2)),
+                    Device("Main", Light()),
+                    Device("Hall", Light()),
+                    Device("Entrance", Light())
+                )),
+                Client("Rasperry", "Pi", arrayOf(
+                    Device("Hall", Fan(24.0f, 0.14f, 5)),
+                    Device("Stairs", Light()),
+                    Device("Lobby", Light()),
+                    Device("Table", Light())
+                ))
+            )
+        )
+        */
         val username = binding.login.username
         val password = binding.login.password
         if (username == "" || username == null) {
