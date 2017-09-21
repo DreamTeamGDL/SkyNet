@@ -8,7 +8,7 @@ import com.microsoft.azure.servicebus.primitives.ServiceBusException
  * Created by Don miguelon on 20/09/2017.
  */
 
-class QueueService {
+object QueueService {
 
     lateinit var messageSender : IMessageSender
 
