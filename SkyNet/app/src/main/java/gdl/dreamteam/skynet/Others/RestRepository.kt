@@ -3,10 +3,7 @@ package gdl.dreamteam.skynet.Others
 import com.google.gson.Gson
 import com.google.gson.GsonBuilder
 import com.google.gson.typeadapters.RuntimeTypeAdapterFactory
-import gdl.dreamteam.skynet.Exceptions.BadRequestException
-import gdl.dreamteam.skynet.Exceptions.ForbiddenException
-import gdl.dreamteam.skynet.Exceptions.InternalErrorException
-import gdl.dreamteam.skynet.Exceptions.UnauthorizedException
+import gdl.dreamteam.skynet.Exceptions.*
 import gdl.dreamteam.skynet.Models.*
 import java.io.InputStreamReader
 import java.io.OutputStreamWriter
@@ -39,9 +36,10 @@ class RestRepository : IDataRepository {
             println(code)
             when(code) {
                 HttpURLConnection.HTTP_BAD_REQUEST -> throw BadRequestException()
-                HttpURLConnection.HTTP_INTERNAL_ERROR -> throw InternalErrorException()
                 HttpURLConnection.HTTP_UNAUTHORIZED -> throw UnauthorizedException()
                 HttpURLConnection.HTTP_FORBIDDEN -> throw ForbiddenException()
+                HttpURLConnection.HTTP_NOT_FOUND -> throw NotFoundException()
+                HttpURLConnection.HTTP_INTERNAL_ERROR -> throw InternalErrorException()
                 else -> return handler()
             }
         }
