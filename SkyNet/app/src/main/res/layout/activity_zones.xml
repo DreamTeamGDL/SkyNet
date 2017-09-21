@@ -27,6 +27,7 @@
         android:fontFamily="sans-serif"
         />
 
+    <!--TODO: Restructure the UI-->
     <ImageButton
         android:id="@+id/image1"
         android:layout_width="200dp"
