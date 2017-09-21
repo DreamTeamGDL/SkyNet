@@ -1,6 +1,5 @@
 package gdl.dreamteam.skynet.Activities
 
-import android.app.Fragment
 import android.content.ComponentName
 import android.content.Intent
 import android.databinding.DataBindingUtil
@@ -17,6 +16,10 @@ import gdl.dreamteam.skynet.Models.AbstractDeviceData
 import gdl.dreamteam.skynet.Models.Device
 import gdl.dreamteam.skynet.Models.Fan
 import gdl.dreamteam.skynet.Models.Light
+import android.util.Log
+import gdl.dreamteam.skynet.Bindings.AbstractDeviceBinding
+import gdl.dreamteam.skynet.Models.Device
+import gdl.dreamteam.skynet.Others.LoginService
 import gdl.dreamteam.skynet.Others.RestRepository
 
 import gdl.dreamteam.skynet.R
@@ -37,14 +40,15 @@ class DeviceActivity : FragmentActivity(), DeviceFanFragment.OnFragmentInteracti
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_device)
 
-        // TODO: Send intent to fragment
+        Log.wtf("access token", LoginService.accessToken)
+
         if (intent.hasExtra("device")) {
             val rawJson = intent.extras.getString("device")
             val device = RestRepository.gson.fromJson(rawJson, Device::class.java)
             val binding: DeviceBinding = DataBindingUtil.setContentView(this, R.layout.activity_device)
 
             binding.abstractDevice = AbstractDeviceBinding(
-                device.id,
+                device.name,
                 device.data.javaClass.simpleName
             )
             addFragment(device.data.javaClass.simpleName, device)
