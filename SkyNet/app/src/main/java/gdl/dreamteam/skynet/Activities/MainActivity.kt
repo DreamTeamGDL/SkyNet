@@ -25,11 +25,13 @@ class MainActivity : AppCompatActivity() {
                     Device("Entrance", Fan(10.0f, 0.24f, 2)),
                     Device("Main", Light()),
                     Device("Hall", Light()),
-                    Device("Entrance", Light()),
-                    Device("Garden", Camera(""))
+                    Device("Entrance", Light())
                 )),
                 Client("Rasperry", "Pi", arrayOf(
-                    Device("Hall", Fan(24.0f, 0.14f, 5))
+                    Device("Hall", Fan(24.0f, 0.14f, 5)),
+                    Device("Stairs", Light()),
+                    Device("Lobby", Light()),
+                    Device("Table", Light())
                 ))
             )
         )

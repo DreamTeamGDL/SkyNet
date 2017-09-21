@@ -2,17 +2,18 @@
 
     <!-- Base application theme. -->
     <style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
-        <!-- Customize your theme here. -->
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
         <item name="colorControlNormal">@color/colorHint</item>
         <item name="colorControlActivated">@color/colorAccent</item>
         <item name="colorControlHighlight">@color/colorAccent</item>
+        <item name="android:colorForeground">@color/colorForeground</item>
     </style>
 
     <style name="AppThemeLogIn" parent="Theme.AppCompat.Light.NoActionBar">
         <item name="android:textColor">@color/colorNormal</item>
+        <item name="colorPrimary">@color/colorPrimary</item>
     </style>
 
 </resources>

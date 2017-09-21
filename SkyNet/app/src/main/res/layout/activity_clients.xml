@@ -5,82 +5,90 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/colorNormal">
+    android:background="@color/colorNormal"
+    tools:context="gdl.dreamteam.skynet.Activities.ClientsActivity">
+
+    <!--TODO: Fix the title to avoid scroll-->
+    <!-- Title -->
+    <RelativeLayout
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:orientation="horizontal"
+        android:padding="5dip"
+        android:id="@+id/relativeLayout"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentStart="true">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:id="@+id/container4"
+            android:paddingBottom="10dp"
+            android:paddingTop="10dp"
+            android:layout_marginLeft="25dp"
+            android:layout_marginRight="25dp">
+            <TextView
+                android:id="@+id/titleMain"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:text="Living Room"
+                android:layout_weight="1"
+                android:textColor="@color/colorPrimary"
+                android:textSize="30sp"
+                android:textStyle="bold"
+                android:typeface="sans"
+                android:textAlignment="center"/>
+            <TextView
+                android:id="@+id/titleMain2"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_weight="1"
+                android:text="Area"
+                android:textColor="@color/colorPrimary"
+                android:textSize="30sp"
+                android:typeface="sans"
+                android:textAlignment="center"/>
+        </LinearLayout>
+    </RelativeLayout>
+
 
     <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/relativeLayout">
 
         <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            tools:context="gdl.dreamteam.skynet.Activities.ClientsActivity">
-
-
-            <!-- Title -->
-            <RelativeLayout
-                android:layout_width="fill_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
-                android:orientation="horizontal"
-                android:padding="5dip"
-                android:id="@+id/relativeLayout"
-                android:layout_alignParentTop="true"
-                android:layout_alignParentStart="true">
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="vertical"
-                    android:id="@+id/container4"
-                    android:paddingBottom="10dp"
-                    android:paddingTop="10dp"
-                    android:layout_marginLeft="25dp"
-                    android:layout_marginRight="25dp">
-                    <TextView
-                        android:id="@+id/titleMain"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_centerVertical="true"
-                        android:text="Living Room"
-                        android:layout_weight="1"
-                        android:textColor="@color/colorPrimary"
-                        android:textSize="30sp"
-                        android:textStyle="bold"
-                        android:typeface="sans"
-                        android:textAlignment="center"/>
-                    <TextView
-                        android:id="@+id/titleMain2"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_centerVertical="true"
-                        android:layout_weight="1"
-                        android:text="Area"
-                        android:textColor="@color/colorPrimary"
-                        android:textSize="30sp"
-                        android:typeface="sans"
-                        android:textAlignment="center"/>
-                </LinearLayout>
-            </RelativeLayout>
-
-
+            android:layout_height="wrap_content">
+            <!--TODO: Arrange clear divisions among the devices-->
             <!-- Fans -->
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="@color/colorHint"/>
             <RelativeLayout
+                android:id="@+id/relativeLayout1"
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:padding="5dip"
-                android:id="@+id/relativeLayout1"
-                android:layout_below="@+id/relativeLayout"
                 android:layout_alignParentStart="true"
                 android:background="@color/colorNormal"
-                android:layout_marginTop="10dp"
-                android:layout_marginBottom="20dp">
+                android:orientation="horizontal">
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:background="@color/colorHint" />
+
                 <RelativeLayout
+                    android:id="@+id/container1"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:id="@+id/container1"
                     android:paddingBottom="10dp"
                     android:paddingTop="10dp">
+
                     <LinearLayout
                         android:id="@+id/thumbnail1"
                         android:layout_width="wrap_content"
@@ -89,52 +97,64 @@
                         android:layout_marginLeft="15dp"
                         android:layout_marginRight="15dp"
                         android:padding="3dip">
+
                         <ImageView
                             android:id="@+id/list_image1"
                             android:layout_width="50dp"
                             android:layout_height="50dp"
-                            android:src="@drawable/icon_01"/>
+                            android:src="@drawable/icon_01" />
                     </LinearLayout>
+
                     <TextView
                         android:id="@+id/title1"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
+                        android:layout_toEndOf="@+id/thumbnail1"
                         android:text="Fan"
                         android:textColor="#040404"
                         android:textSize="20sp"
                         android:textStyle="bold"
-                        android:typeface="sans"
-                        android:layout_centerVertical="true"
-                        android:layout_toEndOf="@+id/thumbnail1" />
+                        android:typeface="sans" />
                 </RelativeLayout>
 
                 <LinearLayout
                     android:id="@+id/linearLayout1"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:orientation="vertical"
-                    android:layout_below="@id/container1">
+                    android:layout_below="@id/container1"
+                    android:background="@color/colorForeground"
+                    android:orientation="vertical">
+
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="1dp"
+                        android:background="@color/colorHint"/>
                 </LinearLayout>
             </RelativeLayout>
 
             <!-- Lights -->
             <RelativeLayout
+                android:id="@+id/relativeLayout2"
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:padding="5dip"
-                android:id="@+id/relativeLayout2"
-                android:layout_below="@+id/relativeLayout1"
                 android:layout_alignParentStart="true"
+                android:layout_below="@+id/relativeLayout1"
                 android:background="@color/colorNormal"
-                android:layout_marginTop="10dp"
-                android:layout_marginBottom="20dp">
+                android:orientation="horizontal">
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:background="@color/colorHint" />
+
                 <RelativeLayout
+                    android:id="@+id/container2"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:id="@+id/container2"
                     android:paddingBottom="10dp"
                     android:paddingTop="10dp">
+
                     <LinearLayout
                         android:id="@+id/thumbnail2"
                         android:layout_width="wrap_content"
@@ -143,52 +163,64 @@
                         android:layout_marginLeft="15dp"
                         android:layout_marginRight="15dp"
                         android:padding="3dip">
+
                         <ImageView
                             android:id="@+id/list_image2"
                             android:layout_width="50dp"
                             android:layout_height="50dp"
-                            android:src="@drawable/icon_02"/>
+                            android:src="@drawable/icon_02" />
                     </LinearLayout>
+
                     <TextView
                         android:id="@+id/title2"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
+                        android:layout_toEndOf="@+id/thumbnail2"
                         android:text="Lights"
                         android:textColor="#040404"
                         android:textSize="20sp"
                         android:textStyle="bold"
-                        android:typeface="sans"
-                        android:layout_centerVertical="true"
-                        android:layout_toEndOf="@+id/thumbnail2" />
+                        android:typeface="sans" />
                 </RelativeLayout>
 
                 <LinearLayout
                     android:id="@+id/linearLayout2"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:orientation="vertical"
-                    android:layout_below="@id/container2">
+                    android:layout_below="@id/container2"
+                    android:background="@color/colorForeground"
+                    android:orientation="vertical">
+
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="1dp"
+                        android:background="@color/colorHint" />
                 </LinearLayout>
             </RelativeLayout>
 
             <!-- Cameras -->
             <RelativeLayout
+                android:id="@+id/relativeLayout3"
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:padding="5dip"
-                android:id="@+id/relativeLayout3"
-                android:layout_below="@+id/relativeLayout2"
                 android:layout_alignParentStart="true"
+                android:layout_below="@+id/relativeLayout2"
                 android:background="@color/colorNormal"
-                android:layout_marginTop="10dp"
-                android:layout_marginBottom="20dp">
+                android:orientation="horizontal">
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:background="@color/colorHint" />
+
                 <RelativeLayout
+                    android:id="@+id/container3"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:id="@+id/container3"
                     android:paddingBottom="10dp"
                     android:paddingTop="10dp">
+
                     <LinearLayout
                         android:id="@+id/thumbnail3"
                         android:layout_width="wrap_content"
@@ -197,38 +229,42 @@
                         android:layout_marginLeft="15dp"
                         android:layout_marginRight="15dp"
                         android:padding="3dip">
+
                         <ImageView
                             android:id="@+id/list_image3"
                             android:layout_width="50dp"
                             android:layout_height="50dp"
-                            android:src="@drawable/icon_03"/>
+                            android:src="@drawable/icon_03" />
                     </LinearLayout>
+
                     <TextView
                         android:id="@+id/title3"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
+                        android:layout_toEndOf="@+id/thumbnail3"
                         android:text="Cameras"
                         android:textColor="#040404"
                         android:textSize="20sp"
                         android:textStyle="bold"
-                        android:typeface="sans"
-                        android:layout_centerVertical="true"
-                        android:layout_toEndOf="@+id/thumbnail3" />
+                        android:typeface="sans" />
                 </RelativeLayout>
 
                 <LinearLayout
                     android:id="@+id/linearLayout3"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:orientation="vertical"
-                    android:layout_below="@id/container3">
+                    android:layout_below="@id/container3"
+                    android:background="@color/colorForeground"
+                    android:orientation="vertical">
+
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="1dp"
+                        android:background="@color/colorHint" />
                 </LinearLayout>
-
             </RelativeLayout>
-
         </RelativeLayout>
-
     </ScrollView>
-
 </RelativeLayout>
 
