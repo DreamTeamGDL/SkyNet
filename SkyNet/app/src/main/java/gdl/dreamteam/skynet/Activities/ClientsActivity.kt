@@ -66,10 +66,10 @@ class ClientsActivity : AppCompatActivity() {
 
     fun <T> extractDeviceNames(zone: Zone, deviceType: Class<T>): List<String> {
         val result = ArrayList<String>()
-        for (client in zone.clients) {
+            for (client in zone.clients) {
             for (device in client.devices) {
                 if (device.data.javaClass.canonicalName == deviceType.canonicalName) {
-                    result.add(device.id)
+                    result.add(device.name)
                 }
             }
         }
@@ -80,7 +80,7 @@ class ClientsActivity : AppCompatActivity() {
         for (client in zone.clients) {
             for (device in client.devices) {
                 val data = device.data
-                if (name == device.id && type == data.javaClass.canonicalName) {
+                if (name == device.name && type == data.javaClass.canonicalName) {
                     return device
                 }
             }

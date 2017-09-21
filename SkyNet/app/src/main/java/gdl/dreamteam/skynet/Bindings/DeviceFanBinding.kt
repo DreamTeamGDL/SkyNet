@@ -24,13 +24,13 @@ class DeviceFanBinding (fanStatus: Boolean, fanTemperature: Float, fanHumidity: 
         get() = fanStatus.get()
         set(value) { fanStatus.set(value) }
 
-    var temperature: Float
-        get() = fanTemperature.get()
-        set(value) { fanTemperature.set(value) }
+    var temperature: String
+        get() = fanTemperature.get().toInt().toString() + "ºC"
+        set(value) { fanTemperature.set(value.toFloat()) }
 
-    var humidity: Float
-        get() = fanHumidity.get()
-        set(value) { fanHumidity.set(value) }
+    var humidity: String
+        get() = (fanHumidity.get() * 100).toInt().toString() + "%"
+        set(value) { fanHumidity.set(value.toFloat()) }
 
     var speed: Int
         get() = fanSpeed.get()
