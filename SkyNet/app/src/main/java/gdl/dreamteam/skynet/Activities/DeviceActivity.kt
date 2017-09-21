@@ -44,7 +44,7 @@ class DeviceActivity : FragmentActivity(), DeviceFanFragment.OnFragmentInteracti
             val rawJson = intent.extras.getString("device")
             val device = RestRepository.gson.fromJson(rawJson, Device::class.java)
             val binding: DeviceBinding = DataBindingUtil.setContentView(this, R.layout.activity_device)
-
+            // Log.wtf("DEVICE", rawJson)
             binding.abstractDevice = AbstractDeviceBinding(
                 device.name,
                 device.data.javaClass.simpleName
@@ -60,17 +60,17 @@ class DeviceActivity : FragmentActivity(), DeviceFanFragment.OnFragmentInteracti
         if(type.equals(DEVICE_TYPE_FAN)){
             val data = RestRepository.gson.toJson(device.data, Fan::class.java)
             fragment = DeviceFanFragment.newInstance(data)
-            transaction.add(R.id.fragmentContainer, fragment, type)
-            transaction.commit()
         }
         else if (type.equals(DEVICE_TYPE_LIGHTS)){
             val data = RestRepository.gson.toJson(device.data, Light::class.java)
-            Log.d("DEVICE ACT", data)
-
             fragment = DeviceLightsFragment.newInstance(data)
+        }
+
+        if (fragment != null){
             transaction.add(R.id.fragmentContainer, fragment, type)
             transaction.commit()
         }
+
     }
 
     override fun somethingHappened(message: String) {
