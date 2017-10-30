@@ -8,14 +8,10 @@ import gdl.dreamteam.skynet.Extensions.longToast
 /**
  * Created by christopher on 18/09/17.
  */
-class LoginBinding (
-    username: String?,
-    password: String?
-) {
-    constructor() : this(null, null)
+class LoginBinding {
 
-    var usernameBind = ObservableField<String>(username)
-    var passwordBind = ObservableField<String>(password)
+    var usernameBind = ObservableField<String>(null)
+    var passwordBind = ObservableField<String>(null)
 
     var username: String?
         get() = usernameBind.get()
@@ -24,10 +20,4 @@ class LoginBinding (
     var password: String?
         get() = passwordBind.get()
         set(value) { passwordBind.set(value) }
-
-
-
-
-
-
 }

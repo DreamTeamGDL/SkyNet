@@ -36,15 +36,19 @@ class DeviceLightsFragment : Fragment() {
     companion object {
 
         const val ARG_STATUS = "status"
+        const val ARG_VOLTAGE = "voltage"
+        const val ARG_TIMEON = "timeOn"
 
         fun newInstance(data: String): DeviceLightsFragment {
-            // Log.d("FRAGMENT", data)
+            Log.d("FRAGMENT", data)
             val device = RestRepository.gson.fromJson(data, Light::class.java)
             val fragment = DeviceLightsFragment()
             val args = Bundle()
             fragment.arguments = args
 
             args.putBoolean(ARG_STATUS, device.status)
+            args.putInt(ARG_VOLTAGE, device.voltage)
+            args.putLong(ARG_TIMEON, device.timeOn)
 
             return fragment
         }
@@ -61,8 +65,13 @@ class DeviceLightsFragment : Fragment() {
         val binding: LightsBinding = DataBindingUtil.inflate(inflater, R.layout.fragment_device_lights, container, false)
         val view = binding.root
 
+        val voltage = arguments.getInt(ARG_VOLTAGE)
+        val timeOn = (arguments.getLong(ARG_TIMEON)/3600)
+        val energy = (voltage * timeOn).toString() + " KwH/day"
+
         binding.deviceLights = DeviceLightsBinding(
-                arguments.getBoolean(ARG_STATUS)
+                arguments.getBoolean(ARG_STATUS),
+                energy
         )
         return view
     }
