@@ -23,7 +23,6 @@ import gdl.dreamteam.skynet.Others.LoginService
 import gdl.dreamteam.skynet.Others.RestRepository
 import gdl.dreamteam.skynet.R
 import gdl.dreamteam.skynet.databinding.MainBinding
-import java.util.concurrent.CompletableFuture
 
 class MainActivity : AppCompatActivity() {
 
