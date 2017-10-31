@@ -68,11 +68,11 @@ class ClientsActivity : AppCompatActivity() {
     fun <T> extractDeviceNames(zone: Zone, deviceType: Class<T>): List<String> {
         val result = ArrayList<String>()
             for (client in zone.clients) {
-            for (device in client.devices) {
-                if (device.data.javaClass.canonicalName == deviceType.canonicalName) {
-                    result.add(device.name)
+                for (device in client.devices) {
+                    if (device.data.javaClass.canonicalName == deviceType.canonicalName) {
+                        result.add(device.name)
+                    }
                 }
-            }
         }
         return result
     }

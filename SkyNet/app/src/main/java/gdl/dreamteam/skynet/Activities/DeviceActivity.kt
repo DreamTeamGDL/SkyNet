@@ -25,11 +25,15 @@ import gdl.dreamteam.skynet.databinding.DeviceBinding
 import java.util.*
 import java.util.concurrent.CompletableFuture
 
-class DeviceActivity : FragmentActivity(), DeviceFanFragment.OnFragmentInteractionListener, DeviceLightsFragment.OnFragmentInteractionListener {
+class DeviceActivity :
+    FragmentActivity(),
+    DeviceFanFragment.OnFragmentInteractionListener,
+    DeviceLightsFragment.OnFragmentInteractionListener {
 
-    lateinit var fragment: Fragment
+    private lateinit var fragment: Fragment
     private lateinit var connectionString: String
     private lateinit var queueName: String
+    private val uiThread = Handler(Looper.getMainLooper())
 
     companion object {
         const val DEVICE_TYPE_FAN = "Fan"
@@ -60,33 +64,30 @@ class DeviceActivity : FragmentActivity(), DeviceFanFragment.OnFragmentInteracti
         }
     }
 
-    private fun addFragment(type: String, device: Device){
-        val manager = fragmentManager
-        val transaction = manager.beginTransaction()
+    private fun addFragment(type: String, device: Device) {
+        val transaction = fragmentManager.beginTransaction()
+        when(type) {
+            DEVICE_TYPE_FAN -> {
+                val data = RestRepository.gson.toJson(device.data, Fan::class.java)
+                fragment = DeviceFanFragment.newInstance(data)
+            }
+            DEVICE_TYPE_LIGHTS -> {
+                val data = RestRepository.gson.toJson(device.data, Light::class.java)
+                fragment = DeviceLightsFragment.newInstance(data)
+            }
+        }
 
-        if(type.equals(DEVICE_TYPE_FAN)){
-            val data = RestRepository.gson.toJson(device.data, Fan::class.java)
-            fragment = DeviceFanFragment.newInstance(data)
-        }
-        else if (type.equals(DEVICE_TYPE_LIGHTS)){
-            val data = RestRepository.gson.toJson(device.data, Light::class.java)
-            fragment = DeviceLightsFragment.newInstance(data)
-        }
-
-        if (fragment != null){
-            transaction.add(R.id.fragmentContainer, fragment, type)
-            transaction.commit()
-        }
+        transaction.add(R.id.fragmentContainer, fragment, type)
+        transaction.commit()
 
     }
 
     override fun somethingHappened(message: String) {
-        val message = ActionMessage(1, UUID.randomUUID().toString(), message)
-        val rawJson = RestRepository.gson.toJson(message)
+        val actionMessage = ActionMessage(1, UUID.randomUUID().toString(), message)
+        val rawJson = RestRepository.gson.toJson(actionMessage)
         CompletableFuture.supplyAsync {
             QueueService.sendMessage(rawJson)
-            Handler(Looper.getMainLooper()).post { finish() }
+            uiThread.post { finish() }
         }
     }
-
 }

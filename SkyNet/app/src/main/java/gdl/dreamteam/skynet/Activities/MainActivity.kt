@@ -7,8 +7,9 @@ import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
 import android.util.Log
+import android.util.Patterns
 import android.view.View
-import android.widget.Toast
+import android.widget.ProgressBar
 import gdl.dreamteam.skynet.Bindings.LoginBinding
 import gdl.dreamteam.skynet.Exceptions.ForbiddenException
 import gdl.dreamteam.skynet.Exceptions.InternalErrorException
@@ -22,14 +23,13 @@ import gdl.dreamteam.skynet.Others.RestRepository
 import gdl.dreamteam.skynet.R
 import gdl.dreamteam.skynet.databinding.MainBinding
 import java.util.concurrent.CompletableFuture
-import java.util.concurrent.ExecutionException
-import java.util.logging.Logger
 
 class MainActivity : AppCompatActivity() {
 
     private lateinit var binding: MainBinding
     private lateinit var dataRepository: IDataRepository
-    val handler = Handler(Looper.getMainLooper())
+    private lateinit var progressBar: ProgressBar
+    private val uiThread = Handler(Looper.getMainLooper())
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -37,68 +37,69 @@ class MainActivity : AppCompatActivity() {
         dataRepository = RestRepository()
         binding = DataBindingUtil.setContentView(this, R.layout.activity_main)
         binding.login = LoginBinding()
+        progressBar = findViewById(R.id.progressBar) as ProgressBar
+    }
+
+    private fun parseZone(zone: Zone?) {
+        val intent = Intent(this, ClientsActivity::class.java)
+        val rawZone = RestRepository.gson.toJson(zone, Zone::class.java)
+        intent.putExtra("zone", rawZone)
+        uiThread.post {
+            progressBar.visibility = View.INVISIBLE
+            startActivity(intent)
+        }
+    }
+
+    private fun validateForm(username: String?, password: String?): Boolean {
+        if (username == "" || username == null) {
+            longToast("Please put a username")
+            return false
+        }
+
+        if (!Patterns.EMAIL_ADDRESS.matcher(username).matches()) {
+            longToast("Invalid email address")
+            return false
+        }
+
+        if (password == "" || password == null) {
+            longToast("Please put a password")
+            return false
+        }
+        return true
+    }
+
+    private fun handleExceptions(throwable: Throwable) {
+        Log.wtf("Exception", throwable.cause.toString())
+        when(throwable.cause) {
+            is UnauthorizedException, is ForbiddenException -> {
+                uiThread.post {
+                    shortToast("Please introduce valid credentials") }
+                }
+            is InternalErrorException -> {
+                uiThread.post {
+                    shortToast("Uups, that was a server error, try again in a few moments")
+                }
+            }
+        }
+        uiThread.post {
+            progressBar.visibility = View.INVISIBLE
+        }
     }
 
     fun onLoginPress(view: View) {
-      /* 
-      Example of Zone
-      val zone = Zone(
-            "Living Room",
-            arrayOf(
-                Client("Dragon", "Board", arrayOf(
-                    Device("Entrance", Fan(10.0f, 0.24f, 2)),
-                    Device("Main", Light()),
-                    Device("Hall", Light()),
-                    Device("Entrance", Light())
-                )),
-                Client("Rasperry", "Pi", arrayOf(
-                    Device("Hall", Fan(24.0f, 0.14f, 5)),
-                    Device("Stairs", Light()),
-                    Device("Lobby", Light()),
-                    Device("Table", Light())
-                ))
-            )
-        )
-        */
-        val username = binding.login.username
-        val password = binding.login.password
-        if (username == "" || username == null) {
-            longToast("Please put a username")
-            return
-        }
-        if (password == "" || password == null) {
-            longToast("Please put a password")
-            return
-        }
+        val username: String? = binding.login.username
+        val password: String? = binding.login.password
+        if (!validateForm(username, password)) return
         LoginService.setup(applicationContext)
-        LoginService.login(
-            binding.login.username as String,
-            binding.login.password as String
-        ).thenApply {
-            return@thenApply dataRepository.getZone("livingroom").get()
-        }.thenApply { zone ->
-            val intent = Intent(this, ClientsActivity::class.java)
-            val rawZone = RestRepository.gson.toJson(zone, Zone::class.java)
-            intent.putExtra("zone", rawZone)
-            handler.post {
-                startActivity(intent)
-            }
-        }.exceptionally { throwable ->
-            Log.wtf("Exception", throwable.cause.toString())
-            when(throwable.cause) {
-                is UnauthorizedException, is ForbiddenException -> {
-                    handler.post {
-                        shortToast("Please introduce valid credentials")
-                    }
-                }
-                is InternalErrorException -> {
-                    handler.post {
-                        shortToast("Uups, that was a server error, try again in a few moments")
-                    }
-                } else -> {
-                    return@exceptionally null
-                }
-            }
+        CompletableFuture.supplyAsync { uiThread.post { progressBar.visibility = View.VISIBLE }}
+        .thenCompose { _ ->
+            LoginService.login(
+                username as String,
+                password as String
+            )
         }
+        .thenApply { dataRepository.getZone("livingroom").get() }
+        .thenApply { zone -> parseZone(zone)}
+        .exceptionally { throwable -> handleExceptions(throwable)}
     }
 }
