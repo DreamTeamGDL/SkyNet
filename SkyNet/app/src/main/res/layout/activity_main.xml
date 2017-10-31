@@ -24,10 +24,10 @@
             android:id="@+id/progressBar"
             style="?android:attr/progressBarStyleHorizontal"
             android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="40dp"
             android:indeterminate="true"
             android:backgroundTint="@color/colorNormal"
-            android:indeterminateTint="#1a09d6"
+            android:indeterminateTint="@color/colorPrimaryDark"
             android:max="100"
             android:visibility="invisible"
             tools:layout_editor_absoluteX="141dp"
@@ -76,11 +76,11 @@
             tools:layout_constraintRight_creator="1" />
 
         <Button
-            android:id="@+id/button"
+            android:id="@+id/loginButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="11dp"
-            android:background="@drawable/normal_button"
+            android:background="@drawable/custom_button"
             android:fontFamily="sans-serif-condensed"
             android:onClick="onLoginPress"
             android:text="Log In"
