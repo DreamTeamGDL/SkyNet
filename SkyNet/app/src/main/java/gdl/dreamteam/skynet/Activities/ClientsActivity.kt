@@ -3,6 +3,7 @@ package gdl.dreamteam.skynet.Activities
 import android.content.Intent
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.widget.LinearLayout
 import android.widget.TextView
@@ -29,11 +30,11 @@ class ClientsActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_clients)
         if (intent.hasExtra("zone")) loadElements(intent)
-
     }
 
     private fun loadElements(intent: Intent) {
         val rawZone = intent.extras.getString("zone")
+        Log.wtf("zone", rawZone)
         zone = RestRepository.gson.fromJson(rawZone, Zone::class.java)
 
         clients.add(findViewById(R.id.linearLayout1) as LinearLayout)
@@ -67,11 +68,11 @@ class ClientsActivity : AppCompatActivity() {
     fun <T> extractDeviceNames(zone: Zone, deviceType: Class<T>): List<String> {
         val result = ArrayList<String>()
             for (client in zone.clients) {
-            for (device in client.devices) {
-                if (device.data.javaClass.canonicalName == deviceType.canonicalName) {
-                    result.add(device.name)
+                for (device in client.devices) {
+                    if (device.data.javaClass.canonicalName == deviceType.canonicalName) {
+                        result.add(device.name)
+                    }
                 }
-            }
         }
         return result
     }
