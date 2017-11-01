@@ -1,7 +1,9 @@
 package gdl.dreamteam.skynet.Others
 
+import android.util.Log
 import com.google.gson.Gson
 import com.google.gson.GsonBuilder
+import com.google.gson.reflect.TypeToken
 import com.google.gson.typeadapters.RuntimeTypeAdapterFactory
 import gdl.dreamteam.skynet.Exceptions.*
 import gdl.dreamteam.skynet.Models.*
@@ -31,6 +33,7 @@ class RestRepository : IDataRepository {
         val gson: Gson = GsonBuilder()
             .registerTypeAdapterFactory(typeAdapter)
             .create()
+
 
         fun <T> handleResponseCode(code: Int, handler: () -> T): T {
             println(code)
@@ -63,6 +66,28 @@ class RestRepository : IDataRepository {
             streamWriter.write(json)
             streamWriter.close()
             handleResponseCode(connection.responseCode) {}
+        }
+    }
+
+    override fun getZone(): CompletableFuture<Array<Zone>?> {
+        return supplyAsync {
+            val connection = URL("$url/zones/")
+                    .openConnection() as HttpURLConnection
+            connection.requestMethod = "GET"
+            connection.setRequestProperty("Accept", "application/json")
+            connection.setRequestProperty("Authorization", "Bearer ${LoginService.accessToken}")
+            return@supplyAsync handleResponseCode(connection.responseCode) {
+                val streamReader = InputStreamReader(connection.inputStream)
+                val rawJson = streamReader.readLines()
+                        .stream()
+                        .collect(Collectors.joining())
+                streamReader.close()
+                connection.disconnect()
+                var zones: Array<Zone> = gson.fromJson(rawJson, object : TypeToken<Array<Zone>>() {}.type)
+                val jsonZones: String = gson.toJson(zones)
+                Log.wtf("MA-ZONES",jsonZones)
+                return@handleResponseCode zones
+            }
         }
     }
 

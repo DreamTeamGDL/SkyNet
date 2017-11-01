@@ -79,7 +79,6 @@ class DeviceActivity :
 
         transaction.add(R.id.fragmentContainer, fragment, type)
         transaction.commit()
-
     }
 
     override fun somethingHappened(message: String) {
