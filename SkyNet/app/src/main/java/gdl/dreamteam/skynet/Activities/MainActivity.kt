@@ -9,6 +9,7 @@ import android.os.Looper
 import android.util.Log
 import android.util.Patterns
 import android.view.View
+import android.widget.Button
 import android.widget.ProgressBar
 import gdl.dreamteam.skynet.Bindings.LoginBinding
 import gdl.dreamteam.skynet.Exceptions.ForbiddenException
@@ -22,13 +23,13 @@ import gdl.dreamteam.skynet.Others.LoginService
 import gdl.dreamteam.skynet.Others.RestRepository
 import gdl.dreamteam.skynet.R
 import gdl.dreamteam.skynet.databinding.MainBinding
-import java.util.concurrent.CompletableFuture
 
 class MainActivity : AppCompatActivity() {
 
     private lateinit var binding: MainBinding
     private lateinit var dataRepository: IDataRepository
     private lateinit var progressBar: ProgressBar
+    private lateinit var loginButton: Button
     private val uiThread = Handler(Looper.getMainLooper())
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -38,6 +39,7 @@ class MainActivity : AppCompatActivity() {
         binding = DataBindingUtil.setContentView(this, R.layout.activity_main)
         binding.login = LoginBinding()
         progressBar = findViewById(R.id.progressBar) as ProgressBar
+        loginButton = findViewById(R.id.loginButton) as Button
     }
 
     private fun parseZone(zones: Array<Zone>?) {
@@ -45,6 +47,7 @@ class MainActivity : AppCompatActivity() {
         val rawZones = RestRepository.gson.toJson(zones, arrayOf(Zone)::class.java)
         intent.putExtra("zones", rawZones)
         uiThread.post {
+            loginButton.isEnabled = true
             progressBar.visibility = View.INVISIBLE
             startActivity(intent)
         }
@@ -82,6 +85,7 @@ class MainActivity : AppCompatActivity() {
             }
         }
         uiThread.post {
+            loginButton.isEnabled = true
             progressBar.visibility = View.INVISIBLE
         }
     }
@@ -100,6 +104,7 @@ class MainActivity : AppCompatActivity() {
         }
         .thenApply { dataRepository.getZone().get() }
         .thenApply { zones -> parseZone(zones)}
+
         .exceptionally { throwable -> handleExceptions(throwable)}
     }
 }
