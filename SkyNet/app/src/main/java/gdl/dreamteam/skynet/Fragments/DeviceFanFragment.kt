@@ -65,6 +65,7 @@ class DeviceFanFragment : Fragment() {
         binding= DataBindingUtil.inflate(inflater, R.layout.fragment_device_fan, container, false)
         val view = binding.root
 
+        // TODO: Add Toast to show interaction with buttons on Save Settings
         val button = view.findViewById<Button>(R.id.queueButton)
         button.setOnClickListener {
             mListener.somethingHappened("SPEED CHANGE ${binding.deviceFan.speed}")

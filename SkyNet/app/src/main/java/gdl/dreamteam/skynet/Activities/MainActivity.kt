@@ -40,10 +40,10 @@ class MainActivity : AppCompatActivity() {
         progressBar = findViewById(R.id.progressBar) as ProgressBar
     }
 
-    private fun parseZone(zone: Zone?) {
-        val intent = Intent(this, ClientsActivity::class.java)
-        val rawZone = RestRepository.gson.toJson(zone, Zone::class.java)
-        intent.putExtra("zone", rawZone)
+    private fun parseZone(zones: Array<Zone>?) {
+        val intent = Intent(this, ZonesActivity::class.java)
+        val rawZones = RestRepository.gson.toJson(zones, arrayOf(Zone)::class.java)
+        intent.putExtra("zones", rawZones)
         uiThread.post {
             progressBar.visibility = View.INVISIBLE
             startActivity(intent)
@@ -98,8 +98,8 @@ class MainActivity : AppCompatActivity() {
                 password as String
             )
         }
-        .thenApply { dataRepository.getZone("livingroom").get() }
-        .thenApply { zone -> parseZone(zone)}
+        .thenApply { dataRepository.getZone().get() }
+        .thenApply { zones -> parseZone(zones)}
         .exceptionally { throwable -> handleExceptions(throwable)}
     }
 }
