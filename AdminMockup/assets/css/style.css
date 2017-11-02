@@ -1,3 +1,11 @@
+/*
+Light Blue: #75BAD5
+Dark Blue: #629FAF
+Red: #FF4081
+Gray: #ddd</color>
+Lighter gray: #F5F5F5
+*/
+
 html{
 	overflow-x: hidden;
 	height: 100%;
@@ -97,7 +105,11 @@ body{
 	font-weight: lighter;
 	text-align: center;
 }
+.wrapper-table table tbody tr td img{
+	width: 100%;
+}
 .wrapper-table table tbody tr td{
+	padding-top: 10px;
 	border-top: 1px solid #629FAF;
 }
 
