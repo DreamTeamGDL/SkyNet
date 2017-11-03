@@ -10,7 +10,7 @@
 		<link rel="stylesheet" type="text/css" href="assets/css/style.css" />
 
 		<!-- Fonts -->
-		<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:100,400,700">
+		<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:100,100i,400,700">
 
 		<!-- Icon -->
 		<link rel="shorcut icon" href="assets/img/icon.png">
@@ -26,20 +26,22 @@
 			<div class="col-md-1">
 				<img id="logo" src="assets/img/logo/logo-wd-small.png">
 			</div>
-			<div class="col-md-2"><h4>Web Admin</h4></div>
-			<div class="col-md-6"></div>
-			<div class="col-md-1"><h3>Users</h3></div>
-			<div class="col-md-1"><h3>Settings</h3></div>
-			<div class="col-md-1"><h3>Logout</h3></div>
+			<div class="col-md-2"><a href="http://localhost:8888/"><h4>Web Admin</h4></a></div>
+			<div class="col-md-7"></div>
+			<div class="col-md-1"><a href="http://localhost:8888/"><button class="btn btn-default btn-navbar">Users</button></a></div>
+			<div class="col-md-1"><a href="http://localhost:8888/"><button class="btn btn-default btn-navbar">Logout</button></a></div>
 		</div>
 		<div id="wrapper">
 			<div class="wrapper-header col-md-12">
         <div class="col-md-12">
-				      <h1>Cesar Espinosa's Living Room</h1>
+			      <h1><strong>Cesar Espinosa's</strong> Living Room</h1>
+						<h4>Edit or select a client</h4>
+						<a href="http://localhost:8888/create.html"><button class="btn-default">+ CLIENT</button></a>
+						<br><br>
         </div>
 			</div>
 			<div class="wrapper-header-content col-md-12">
-        <div class="col-md-4">
+        <div class="col-md-12">
 				      <h1>Clients</h1>
         </div>
 			</div>
@@ -48,21 +50,24 @@
 					<table class="table">
 							<thead>
 									<tr>
-											<th>Id</th>
+											<th></th>
 											<th>Name</th>
 											<th># Devices</th>
+											<th>ID</th>
 									</tr>
 							</thead>
 							<tbody>
-									<tr onclick="window.document.location='http://localhost:8888/device.html';">
-											<td>dad716721s5sasasd</td>
-											<td>Dragon</td>
+									<tr>
+											<td onclick="window.document.location='http://localhost:8888/edit.html';"><span class="glyphicon glyphicon glyphicon-pencil" aria-hidden="true"></span></td>
+											<td class="row-name" onclick="window.document.location='http://localhost:8888/devices.html';">Dragon</td>
 											<td>4</td>
+											<td>dad716721s5sasasd</td>
 									</tr>
-									<tr onclick="window.document.location='http://localhost:8888/device.html';">
-											<td>mom716721s5asiqd</td>
-											<td>Raspberry Pi</td>
+									<tr>
+											<td onclick="window.document.location='http://localhost:8888/edit.html';"><span class="glyphicon glyphicon glyphicon-pencil" aria-hidden="true"></span></td>
+											<td class="row-name" onclick="window.document.location='http://localhost:8888/devices.html';">Raspberry Pi</td>
 											<td>3</td>
+											<td>mom716721s5asiqd</td>
 									</tr>
 							</tbody>
 					</table>

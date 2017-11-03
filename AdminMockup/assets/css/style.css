@@ -19,6 +19,9 @@ body{
 	background-color: #75BAD5;
 	color: #fff;
 }
+a:hover{
+	text-decoration: none;
+}
 
 /* Navbar */
 #navbar{
@@ -89,7 +92,6 @@ body{
 .wrapper-table tbody tr{
 	border: 1px solid #629FAF;
 	color: #fff;
-	cursor: pointer;
 	transition: all 0.7s ease-in-out !important;
 			-moz-transition: all 0.7s ease-in-out !important;
 			-ms-transition: all 0.7s ease-in-out !important;
@@ -97,7 +99,7 @@ body{
 			-webkit-transition: all 0.7s ease-in-out !important;
 }
 .wrapper-table tbody tr:hover{
-	background: #FF4081;
+	background: #68AAC1;
 	color: #fff;
 }
 .wrapper-table table tbody tr{
@@ -106,13 +108,37 @@ body{
 	text-align: center;
 }
 .wrapper-table table tbody tr td img{
-	width: 100%;
+	width: 50%;
 }
 .wrapper-table table tbody tr td{
 	padding-top: 10px;
 	border-top: 1px solid #629FAF;
 }
-
+.wrapper-table .glyphicon{
+	color: #ddd;
+	cursor: pointer;
+	font-size: 18px;
+	transition: all 0.3s ease-in-out !important;
+			-moz-transition: all 0.3s ease-in-out !important;
+			-ms-transition: all 0.3s ease-in-out !important;
+			-o-transition: all 0.3s ease-in-out !important;
+			-webkit-transition: all 0.3s ease-in-out !important;
+}
+.wrapper-table .glyphicon:hover{
+	color: #fff;
+	font-weight: bold;
+}
+.row-name{
+	cursor: pointer;
+	transition: all 0.3s ease-in-out !important;
+			-moz-transition: all 0.3s ease-in-out !important;
+			-ms-transition: all 0.3s ease-in-out !important;
+			-o-transition: all 0.3s ease-in-out !important;
+			-webkit-transition: all 0.3s ease-in-out !important;
+}
+.row-name:hover{
+	font-weight: bold;
+}
 /* Header */
 .wrapper-header{
 	position: relative;
@@ -124,9 +150,16 @@ body{
   text-align: left;
 }
 .wrapper-header h1{
-	font-weight: bold;
+	font-weight: lighter;
 	margin-top: 10px;
-	font-size: 30px;
+	font-size: 25px;
+}
+.wrapper-header h1 strong{
+	font-weight: bold;
+}
+.wrapper-header h4{
+	font-weight: lighter;
+	font-style: italic;
 }
 
 /* Header-content */
@@ -138,15 +171,15 @@ body{
 	margin-left: 10%;
 	padding-top: 10px;
   text-align: left;
-	background: #629FAF;
+	background: #FF4081;
 }
 .wrapper-header-content img{
 	width: 100%;
 }
 .wrapper-header-content h1{
 	font-weight: lighter;
-	margin-top: 10px;
-	font-size: 25px;
+	margin-top: 5px;
+	font-size: 20px;
 }
 /* Content */
 .wrapper-content{
@@ -155,7 +188,7 @@ body{
 	min-height: auto;
 	margin-left: 10%;
 	margin-bottom: 10%;
-  text-align: center;
+  text-align: left;
 	border: 1px solid #629FAF;
 	padding: 20px;
 }
@@ -180,7 +213,93 @@ body{
 	font-weight: lighter;
 	margin-top: 5px;
 }
-
+.wrapper-content h5{
+	font-size: 16px;
+	font-style: italic;
+	font-weight: lighter;
+	width: 20%;
+}
+.wrapper-content h6{
+	font-size: 16px;
+	width: 80%;
+	margin-bottom: 5%;
+}
+.wrapper-content .input-group {
+	display: inline-flex;
+	width: 100%;
+}
+.wrapper-short{
+	width: 50%;
+	margin-right: 15%;
+}
+.wrapper-content .form-control{
+	font-size: 16px;
+	display: inline;
+	height: 100%;
+	width: 80%;
+	color: #fff;
+	font-weight: bold;
+  background-color: transparent;
+  border: 1px solid #629FAF;
+	transition: all 0.3s ease-in-out !important;
+			-moz-transition: all 0.3s ease-in-out !important;
+			-ms-transition: all 0.3s ease-in-out !important;
+			-o-transition: all 0.3s ease-in-out !important;
+			-webkit-transition: all 0.3s ease-in-out !important;
+}
+.wrapper-content .form-control:focus{
+  border: 1px solid #fff;
+}
+.wrapper-content .form-control::placeholder{
+	font-weight: lighter;
+	font-style: italic;
+  color: #629FAF;
+}
+.btn-default {
+    color: #fff;
+		font-weight: bold;
+    background-color: #629FAF;
+    border-color: #629FAF;
+		transition: all 0.3s ease-in-out !important;
+				-moz-transition: all 0.3s ease-in-out !important;
+				-ms-transition: all 0.3s ease-in-out !important;
+				-o-transition: all 0.3s ease-in-out !important;
+				-webkit-transition: all 0.3s ease-in-out !important;
+}
+.btn-default:hover {
+    color: #fff;
+    background-color: #FF4081;
+    border-color: #FF4081;
+}
+.btn-navbar{
+	font-size: 20px;
+  margin-top: 10px;
+  font-weight: lighter;
+}
+/* Settings */
+.wrapper-settings{
+	position: relative;
+	min-height: auto;
+	border: 1px solid #629FAF;
+	background: #75BAD5;
+	padding: 20px;
+	margin-bottom: 10%;
+}
+.wrapper-form{
+	padding: 0 5% 5% 5%;
+}
+.extra-padding{
+	padding: 10px !important;
+}
+.extra-margin{
+	margin-bottom: 5%;
+}
+.no-padding{
+	padding: 0 !important;
+}
+.no-margin{
+	margin: 0 !important;
+}
 
 /* Searchbar */
 .row-padding {

@@ -26,16 +26,20 @@
 			<div class="col-md-1">
 				<img id="logo" src="assets/img/logo/logo-wd-small.png">
 			</div>
-			<div class="col-md-2"><h4>Web Admin</h4></div>
-			<div class="col-md-6"></div>
-			<div class="col-md-1"><h3>Users</h3></div>
-			<div class="col-md-1"><h3>Settings</h3></div>
-			<div class="col-md-1"><h3>Logout</h3></div>
+			<div class="col-md-2"><a href="http://localhost:8888/"><h4>Web Admin</h4></a></div>
+			<div class="col-md-7"></div>
+			<div class="col-md-1"><a href="http://localhost:8888/"><button class="btn btn-default btn-navbar">Users</button></a></div>
+			<div class="col-md-1"><a href="http://localhost:8888/"><button class="btn btn-default btn-navbar">Logout</button></a></div>
 		</div>
 		<div id="wrapper">
 			<div class="wrapper-title col-xs-12 col-sm-12 col-md-12">
 				<img src="assets/img/logo/logo-wd.png"/>
-				<h1>List of Users</h1>
+				<h1>Welcome to Web Admin</h1>
+			</div>
+			<div class="wrapper-header-content col-md-12">
+        <div class="col-md-4">
+				      <h1>Users</h1>
+        </div>
 			</div>
 			<div class="wrapper-table">
 		    <div class="row">
@@ -43,26 +47,26 @@
 		            <table class="table">
 		                <thead>
 		                    <tr>
+														<th>Name</th>
+														<th>Username</th>
 		                        <th>Id</th>
-		                        <th>Name</th>
-		                        <th>Username</th>
 		                    </tr>
 		                </thead>
 		                <tbody>
-		                    <tr onclick="window.document.location='http://localhost:8888/user.html';">
-		                        <td>A01225338</td>
-		                        <td>César Espinosa</td>
-		                        <td>cesarjr.espinosa@gmail.com</td>
+		                    <tr>
+														<td class="row-name" onclick="window.document.location='http://localhost:8888/zones.html';">César Espinosa</td>
+														<td>cesarjr.espinosa@gmail.com</td>
+														<td>A01225338</td>
 		                    </tr>
-		                    <tr onclick="window.document.location='http://localhost:8888/user.html';">
-		                        <td>A01225121</td>
-		                        <td>Chris Márquez</td>
-		                        <td>elchris@gmail.com</td>
+		                    <tr>
+														<td class="row-name" onclick="window.document.location='http://localhost:8888/zones.html';">Chris Márquez</td>
+														<td>elchris@gmail.com</td>
+														<td>A01225121</td>
 		                    </tr>
-		                    <tr onclick="window.document.location='http://localhost:8888/user.html';">
-		                        <td>A01225676</td>
-		                        <td>Miguel Pérez</td>
-		                        <td>elmigueleishon@gmail.com</td>
+		                    <tr>
+														<td class="row-name" onclick="window.document.location='http://localhost:8888/zones.html';">Miguel Pérez</td>
+														<td>elmigueleishon@gmail.com</td>
+														<td>A01225676</td>
 		                    </tr>
 		                </tbody>
 		            </table>
