@@ -65,7 +65,7 @@ class ClientsActivity : AppCompatActivity() {
         }
     }
 
-    fun <T> extractDeviceNames(zone: Zone, deviceType: Class<T>): List<String> {
+    private fun <T> extractDeviceNames(zone: Zone, deviceType: Class<T>): List<String> {
         val result = ArrayList<String>()
             for (client in zone.clients) {
                 for (device in client.devices) {
@@ -74,6 +74,7 @@ class ClientsActivity : AppCompatActivity() {
                     }
                 }
         }
+        result.sort()
         return result
     }
 

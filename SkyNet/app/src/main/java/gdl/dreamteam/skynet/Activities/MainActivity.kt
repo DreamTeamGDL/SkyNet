@@ -23,6 +23,7 @@ import gdl.dreamteam.skynet.Others.LoginService
 import gdl.dreamteam.skynet.Others.RestRepository
 import gdl.dreamteam.skynet.R
 import gdl.dreamteam.skynet.databinding.MainBinding
+import java.util.concurrent.CompletableFuture
 
 class MainActivity : AppCompatActivity() {
 
@@ -44,7 +45,7 @@ class MainActivity : AppCompatActivity() {
 
     private fun parseZone(zones: Array<Zone>?) {
         val intent = Intent(this, ZonesActivity::class.java)
-        val rawZones = RestRepository.gson.toJson(zones, arrayOf(Zone)::class.java)
+        val rawZones = RestRepository.gson.toJson(zones, Array<Zone>::class.java)
         intent.putExtra("zones", rawZones)
         uiThread.post {
             loginButton.isEnabled = true
@@ -95,13 +96,12 @@ class MainActivity : AppCompatActivity() {
         val password: String? = binding.login.password
         if (!validateForm(username, password)) return
         LoginService.setup(applicationContext)
-        CompletableFuture.supplyAsync { uiThread.post { progressBar.visibility = View.VISIBLE }}
-        .thenCompose { _ ->
-            LoginService.login(
-                username as String,
-                password as String
-            )
-        }
+        progressBar.visibility = View.VISIBLE
+        shortToast("Logging In...")
+        LoginService.login(
+            username as String,
+            password as String
+        )
         .thenApply { dataRepository.getZone().get() }
         .thenApply { zones -> parseZone(zones)}
 
