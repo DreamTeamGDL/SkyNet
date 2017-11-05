@@ -30,8 +30,11 @@ object LoginService {
         domain = context.getString(R.string.com_auth0_domain)
     }
 
-    val accessToken: String
+    var accessToken: String
         get() = credentials.access_token
+        set(value){
+            credentials.access_token = value
+        }
 
     fun login(username: String, password: String): CompletableFuture<LoginResponse> {
         return CompletableFuture.supplyAsync {

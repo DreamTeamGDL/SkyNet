@@ -8,38 +8,48 @@
     android:background="@color/colorNormal"
     tools:context="gdl.dreamteam.skynet.Activities.ClientsActivity">
 
+    <include
+        android:layout_width="match_parent"
+        android:layout_height="80dp"
+        android:id="@+id/toolBar"
+        layout="@layout/tool_bar" />
+
     <!--TODO: Fix the title to avoid scroll-->
     <!-- Title -->
     <RelativeLayout
+        android:id="@+id/relativeLayout"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
-        android:orientation="horizontal"
-        android:padding="5dip"
-        android:id="@+id/relativeLayout"
+        android:layout_alignParentStart="true"
         android:layout_alignParentTop="true"
-        android:layout_alignParentStart="true">
+        android:layout_below="@id/toolBar"
+        android:layout_marginTop="20dp"
+        android:orientation="horizontal"
+        android:padding="5dip">
+
         <LinearLayout
+            android:id="@+id/container4"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:id="@+id/container4"
-            android:paddingBottom="10dp"
-            android:paddingTop="10dp"
             android:layout_marginLeft="25dp"
-            android:layout_marginRight="25dp">
+            android:layout_marginRight="25dp"
+            android:orientation="vertical"
+            android:paddingBottom="10dp"
+            android:paddingTop="10dp">
+
             <TextView
                 android:id="@+id/titleMain"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_centerVertical="true"
-                android:text="Living Room"
                 android:layout_weight="1"
+                android:text="Living Room"
+                android:textAlignment="center"
                 android:textColor="@color/colorPrimary"
                 android:textSize="30sp"
                 android:textStyle="bold"
-                android:typeface="sans"
-                android:textAlignment="center"/>
+                android:typeface="sans" />
+
             <TextView
                 android:id="@+id/titleMain2"
                 android:layout_width="match_parent"
@@ -47,10 +57,10 @@
                 android:layout_centerVertical="true"
                 android:layout_weight="1"
                 android:text="Area"
+                android:textAlignment="center"
                 android:textColor="@color/colorPrimary"
                 android:textSize="30sp"
-                android:typeface="sans"
-                android:textAlignment="center"/>
+                android:typeface="sans" />
         </LinearLayout>
     </RelativeLayout>
 
