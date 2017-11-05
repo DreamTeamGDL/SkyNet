@@ -73,6 +73,9 @@ class DeviceLightsFragment : Fragment() {
                 arguments.getBoolean(ARG_STATUS),
                 energy
         )
+
+        // TODO: Add Toast to show interaction with buttons on Save Settings
+
         return view
     }
 

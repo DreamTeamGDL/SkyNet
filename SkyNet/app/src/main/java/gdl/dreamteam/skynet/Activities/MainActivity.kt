@@ -42,10 +42,10 @@ class MainActivity : AppCompatActivity() {
         loginButton = findViewById(R.id.loginButton) as Button
     }
 
-    private fun parseZone(zone: Zone?) {
-        val intent = Intent(this, ClientsActivity::class.java)
-        val rawZone = RestRepository.gson.toJson(zone, Zone::class.java)
-        intent.putExtra("zone", rawZone)
+    private fun parseZone(zones: Array<Zone>?) {
+        val intent = Intent(this, ZonesActivity::class.java)
+        val rawZones = RestRepository.gson.toJson(zones, arrayOf(Zone)::class.java)
+        intent.putExtra("zones", rawZones)
         uiThread.post {
             loginButton.isEnabled = true
             progressBar.visibility = View.INVISIBLE
@@ -95,14 +95,16 @@ class MainActivity : AppCompatActivity() {
         val password: String? = binding.login.password
         if (!validateForm(username, password)) return
         LoginService.setup(applicationContext)
-        progressBar.visibility = View.VISIBLE
-        loginButton.isEnabled = false
-        LoginService.login(
-            username as String,
-            password as String
-        )
-        .thenApply { dataRepository.getZone("livingroom").get() }
-        .thenApply { zone -> parseZone(zone)}
+        CompletableFuture.supplyAsync { uiThread.post { progressBar.visibility = View.VISIBLE }}
+        .thenCompose { _ ->
+            LoginService.login(
+                username as String,
+                password as String
+            )
+        }
+        .thenApply { dataRepository.getZone().get() }
+        .thenApply { zones -> parseZone(zones)}
+
         .exceptionally { throwable -> handleExceptions(throwable)}
     }
 }

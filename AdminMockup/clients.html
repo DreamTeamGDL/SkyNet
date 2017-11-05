@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+	<head>
+		<meta http-equiv="content-type" content="text/html; charset=UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+		<title>WatchDogs Admin | Users </title>
+
+		<!-- Stylesheets -->
+		<link rel="stylesheet" type="text/css" href="assets/css/bootstrap.min.css" />
+		<link rel="stylesheet" type="text/css" href="assets/css/style.css" />
+
+		<!-- Fonts -->
+		<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:100,100i,400,700">
+
+		<!-- Icon -->
+		<link rel="shorcut icon" href="assets/img/icon.png">
+
+		<!-- Scripts -->
+		<script type="text/javascript" src="assets/js/bootstrap.min.js"></script>
+		<script type="text/javascript" src="assets/js/main.js"></script>
+
+	</head>
+
+	<body>
+		<div id="navbar"  class="col-xs-12 col-sm-12 col-md-12">
+			<div class="col-md-1">
+				<img id="logo" src="assets/img/logo/logo-wd-small.png">
+			</div>
+			<div class="col-md-2"><a href="http://localhost:8888/"><h4>Web Admin</h4></a></div>
+			<div class="col-md-7"></div>
+			<div class="col-md-1"><a href="http://localhost:8888/"><button class="btn btn-default btn-navbar">Users</button></a></div>
+			<div class="col-md-1"><a href="http://localhost:8888/"><button class="btn btn-default btn-navbar">Logout</button></a></div>
+		</div>
+		<div id="wrapper">
+			<div class="wrapper-header col-md-12">
+        <div class="col-md-12">
+			      <h1><strong>Cesar Espinosa's</strong> Living Room</h1>
+						<h4>Edit or select a client</h4>
+						<a href="http://localhost:8888/create.html"><button class="btn-default">+ CLIENT</button></a>
+						<br><br>
+        </div>
+			</div>
+			<div class="wrapper-header-content col-md-12">
+        <div class="col-md-12">
+				      <h1>Clients</h1>
+        </div>
+			</div>
+      <div class="wrapper-table col-md-12" style="margin-top: 0;">
+        <div class="row">
+					<table class="table">
+							<thead>
+									<tr>
+											<th></th>
+											<th>Name</th>
+											<th># Devices</th>
+											<th>ID</th>
+									</tr>
+							</thead>
+							<tbody>
+									<tr>
+											<td onclick="window.document.location='http://localhost:8888/edit.html';"><span class="glyphicon glyphicon glyphicon-pencil" aria-hidden="true"></span></td>
+											<td class="row-name" onclick="window.document.location='http://localhost:8888/devices.html';">Dragon</td>
+											<td>4</td>
+											<td>dad716721s5sasasd</td>
+									</tr>
+									<tr>
+											<td onclick="window.document.location='http://localhost:8888/edit.html';"><span class="glyphicon glyphicon glyphicon-pencil" aria-hidden="true"></span></td>
+											<td class="row-name" onclick="window.document.location='http://localhost:8888/devices.html';">Raspberry Pi</td>
+											<td>3</td>
+											<td>mom716721s5asiqd</td>
+									</tr>
+							</tbody>
+					</table>
+      </div>
+    </div>
+	</body>
+</html>
