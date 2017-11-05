@@ -13,6 +13,8 @@ import android.widget.AdapterView.OnItemClickListener
 import android.widget.GridView
 import com.google.gson.reflect.TypeToken
 import gdl.dreamteam.skynet.Adapter.ZonesAdapter
+import gdl.dreamteam.skynet.Extensions.longToast
+import gdl.dreamteam.skynet.Extensions.shortToast
 import gdl.dreamteam.skynet.Models.Client
 import gdl.dreamteam.skynet.Models.Zone
 import gdl.dreamteam.skynet.Others.RestRepository
@@ -30,14 +32,14 @@ class ZonesActivity : AppCompatActivity() {
     private fun loadZones(intent: Intent){
 
         val rawJson = intent.getStringExtra("zones")
-        val zones: Array<Zone> = RestRepository.gson.fromJson(rawJson, object : TypeToken<Array<Zone>>() {}.type)
+        val zones: Array<Zone> = RestRepository.gson.fromJson(rawJson, Array<Zone>::class.java)
         val gridview = findViewById(R.id.gridview) as GridView
         gridview.adapter = ZonesAdapter(this, zones)
 
         gridview.setOnItemClickListener { _, _, position, _ ->
             val intent = Intent(this, ClientsActivity::class.java)
             val rawJson = RestRepository.gson.toJson(zones[position], Zone::class.java)
-            Toast.makeText(this@ZonesActivity, "Openning " + zones[position].name + "...", Toast.LENGTH_SHORT).show()
+            shortToast("Opening ${zones[position].name}...")
             intent.putExtra("zone", rawJson)
             startActivity(intent)
         }

@@ -83,7 +83,7 @@ class RestRepository : IDataRepository {
                         .collect(Collectors.joining())
                 streamReader.close()
                 connection.disconnect()
-                var zones: Array<Zone> = gson.fromJson(rawJson, object : TypeToken<Array<Zone>>() {}.type)
+                var zones: Array<Zone> = gson.fromJson(rawJson, Array<Zone>::class.java)
                 val jsonZones: String = gson.toJson(zones)
                 Log.wtf("MA-ZONES",jsonZones)
                 return@handleResponseCode zones

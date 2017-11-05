@@ -13,7 +13,9 @@ import android.util.Log
 import android.widget.Toast
 import gdl.dreamteam.skynet.Bindings.AbstractDeviceBinding
 import gdl.dreamteam.skynet.Bindings.DeviceLightsBinding
+import gdl.dreamteam.skynet.Extensions.shortToast
 import gdl.dreamteam.skynet.Fragments.DeviceFanFragment
+import gdl.dreamteam.skynet.Fragments.DeviceFragmentListener
 import gdl.dreamteam.skynet.Fragments.DeviceLightsFragment
 import gdl.dreamteam.skynet.Models.*
 import gdl.dreamteam.skynet.Others.LoginService
@@ -25,10 +27,7 @@ import gdl.dreamteam.skynet.databinding.DeviceBinding
 import java.util.*
 import java.util.concurrent.CompletableFuture
 
-class DeviceActivity :
-    FragmentActivity(),
-    DeviceFanFragment.OnFragmentInteractionListener,
-    DeviceLightsFragment.OnFragmentInteractionListener {
+class DeviceActivity : FragmentActivity(), DeviceFragmentListener {
 
     private lateinit var fragment: Fragment
     private lateinit var connectionString: String
@@ -86,7 +85,10 @@ class DeviceActivity :
         val rawJson = RestRepository.gson.toJson(actionMessage)
         CompletableFuture.supplyAsync {
             QueueService.sendMessage(rawJson)
-            uiThread.post { finish() }
+            uiThread.post {
+                shortToast("Settings saved")
+                finish()
+            }
         }
     }
 }

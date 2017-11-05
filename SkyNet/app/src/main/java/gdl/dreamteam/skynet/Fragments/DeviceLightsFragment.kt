@@ -25,12 +25,7 @@ import gdl.dreamteam.skynet.databinding.LightsBinding
 class DeviceLightsFragment : Fragment() {
 
 
-    private lateinit var mListener: OnFragmentInteractionListener
-
-    // Empty Constructor
-    fun DeviceFanFragment(){
-
-    }
+    private lateinit var mListener: DeviceFragmentListener
 
     // Factory method to create an instance of this fragment
     companion object {
@@ -54,13 +49,9 @@ class DeviceLightsFragment : Fragment() {
         }
     }
 
-    override fun onCreate(savedInstanceState: Bundle?){
-        super.onCreate(savedInstanceState);
-    }
-
     override fun onCreateView(inflater: LayoutInflater?,
-                              @Nullable container: ViewGroup?,
-                              @Nullable savedInstanceState: Bundle?): View? {
+                              container: ViewGroup?,
+                              savedInstanceState: Bundle?): View? {
 
         val binding: LightsBinding = DataBindingUtil.inflate(inflater, R.layout.fragment_device_lights, container, false)
         val view = binding.root
@@ -81,20 +72,11 @@ class DeviceLightsFragment : Fragment() {
 
     override fun onAttach(context: Context?) {
         super.onAttach(context)
-        if (context is OnFragmentInteractionListener) {
+        if (context is DeviceFragmentListener) {
             mListener = context
         } else {
             throw RuntimeException(context.toString() + " must implement OnFragmentInteractionListener")
         }
-    }
-
-    override fun onDetach() {
-        super.onDetach()
-    }
-
-
-    interface OnFragmentInteractionListener {
-        fun somethingHappened(message: String)
     }
 
 }
