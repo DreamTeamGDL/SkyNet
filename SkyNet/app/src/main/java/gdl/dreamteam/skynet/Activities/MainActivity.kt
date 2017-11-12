@@ -2,6 +2,7 @@ package gdl.dreamteam.skynet.Activities
 
 import android.content.Intent
 import android.databinding.DataBindingUtil
+import android.media.MediaPlayer
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import android.os.Handler
@@ -23,7 +24,6 @@ import gdl.dreamteam.skynet.Others.LoginService
 import gdl.dreamteam.skynet.Others.RestRepository
 import gdl.dreamteam.skynet.R
 import gdl.dreamteam.skynet.databinding.MainBinding
-import java.util.concurrent.CompletableFuture
 
 class MainActivity : AppCompatActivity() {
 
@@ -44,6 +44,8 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun parseZone(zones: Array<Zone>?) {
+        val mediaPlayer = MediaPlayer.create(this, R.raw.bork)
+        mediaPlayer.start()
         val intent = Intent(this, ZonesActivity::class.java)
         val rawZones = RestRepository.gson.toJson(zones, Array<Zone>::class.java)
         intent.putExtra("zones", rawZones)
