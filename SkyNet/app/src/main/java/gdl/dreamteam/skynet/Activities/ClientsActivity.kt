@@ -44,7 +44,7 @@ class ClientsActivity : AppCompatActivity() {
     }
 
     private fun loadElements(intent: Intent, title: TextView) {
-        if (intent.hasExtra("zone")) loadElements(intent)
+        if (intent.hasExtra("zone")) load(intent, title)
 
         val toolbar = findViewById(R.id.toolBar) as Toolbar
         setSupportActionBar(toolbar)
@@ -87,7 +87,7 @@ class ClientsActivity : AppCompatActivity() {
     }
 
 
-    private fun loadElements(intent: Intent) {
+    private fun load(intent: Intent, title: TextView) {
         val rawZone = intent.extras.getString("zone")
         Log.wtf("zone", rawZone)
         zone = RestRepository.gson.fromJson(rawZone, Zone::class.java)

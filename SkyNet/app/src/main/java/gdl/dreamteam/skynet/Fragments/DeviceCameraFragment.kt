@@ -68,10 +68,10 @@ class DeviceCameraFragment() : Fragment() {
 
         binding.deviceCamera = DeviceCameraBinding(arguments.getBoolean(ARG_STATUS))
 
-        val path ="android.resource://gdl.dreamteam.skynet/" + R.raw.testvideo;
-        val video = view.findViewById<VideoView>(R.id.video)
-        video.setVideoURI(Uri.parse(path))
-        video.start()
+        //val path ="android.resource://gdl.dreamteam.skynet/" + R.raw.testvideo;
+        //val video = view.findViewById<VideoView>(R.id.video)
+        //video.setVideoURI(Uri.parse(path))
+        //video.start()
 
         return view
     }
