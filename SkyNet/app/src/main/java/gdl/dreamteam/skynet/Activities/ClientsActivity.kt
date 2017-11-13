@@ -1,5 +1,6 @@
 package gdl.dreamteam.skynet.Activities
 
+import android.app.Activity
 import android.content.Intent
 import android.net.Uri
 import android.support.v7.app.AppCompatActivity
@@ -9,6 +10,7 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.Menu
 import android.view.MenuItem
+import android.view.View
 import android.widget.LinearLayout
 import android.widget.TextView
 import gdl.dreamteam.skynet.Models.*
@@ -124,6 +126,13 @@ class ClientsActivity : AppCompatActivity() {
         }
     }
 
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        if(resultCode == Activity.RESULT_OK){
+            val title = findViewById(R.id.titleMain) as TextView
+            title.text = intent.getStringExtra("newName")
+        }
+    }
+
     private fun <T> extractDeviceNames(zone: Zone, deviceType: Class<T>): List<String> {
         val result = ArrayList<String>()
             for (client in zone.clients) {
@@ -149,5 +158,11 @@ class ClientsActivity : AppCompatActivity() {
         return Pair(null, "")
     }
 
+    fun editClicked(v: View){
+        val intent = Intent(this, EditNameActivity::class.java)
+        intent.putExtra("zoneName", zone.name)
+        intent.putExtra("zoneID", zone.id.toString())
+        startActivityForResult(intent, 0)
+    }
 
 }
