@@ -51,14 +51,14 @@
                 android:typeface="sans" />
 
             <TextView
-                android:id="@+id/titleMain"
+                android:id="@+id/titleMain2"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_centerVertical="true"
+                android:text="Area"
                 android:layout_weight="1"
                 android:textColor="@color/colorPrimary"
                 android:textSize="30sp"
-                android:textStyle="bold"
                 android:typeface="sans"
                 android:textAlignment="center"/>
 
