@@ -7,6 +7,7 @@ import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
+import android.provider.Settings
 import android.util.Log
 import android.util.Patterns
 import android.view.View
@@ -23,6 +24,7 @@ import gdl.dreamteam.skynet.Models.*
 import gdl.dreamteam.skynet.Others.IDataRepository
 import gdl.dreamteam.skynet.Others.LoginService
 import gdl.dreamteam.skynet.Others.RestRepository
+import gdl.dreamteam.skynet.Others.SettingsService
 import gdl.dreamteam.skynet.R
 import gdl.dreamteam.skynet.databinding.MainBinding
 
@@ -33,6 +35,7 @@ class MainActivity : AppCompatActivity() {
     private lateinit var progressBar: ProgressBar
     private lateinit var loginButton: Button
     private val uiThread = Handler(Looper.getMainLooper())
+    private lateinit var settingsService : SettingsService
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -42,6 +45,7 @@ class MainActivity : AppCompatActivity() {
         binding.login = LoginBinding()
         progressBar = findViewById(R.id.progressBar) as ProgressBar
         loginButton = findViewById(R.id.loginButton) as Button
+        settingsService = SettingsService(applicationContext)
     }
 
     private fun parseZone(zones: Array<Zone>?) {
@@ -104,6 +108,7 @@ class MainActivity : AppCompatActivity() {
             username as String,
             password as String
         )
+        .thenApply { loginResponse -> settingsService.saveString("Token", loginResponse.access_token) }
         .thenApply { dataRepository.getZone().get() }
         .thenApply { zones -> parseZone(zones)}
 
