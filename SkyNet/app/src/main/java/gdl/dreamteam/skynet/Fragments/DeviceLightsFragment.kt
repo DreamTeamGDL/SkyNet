@@ -4,22 +4,17 @@ import android.app.Fragment
 import android.content.Context
 import android.databinding.DataBindingUtil
 import android.os.Bundle
-import android.support.annotation.Nullable
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
-import android.widget.Switch
-import android.widget.ToggleButton
-import gdl.dreamteam.skynet.Bindings.DeviceFanBinding
 import gdl.dreamteam.skynet.Bindings.DeviceLightsBinding
 import gdl.dreamteam.skynet.Extensions.shortToast
 import gdl.dreamteam.skynet.Models.Fan
 import gdl.dreamteam.skynet.Models.Light
 import gdl.dreamteam.skynet.Others.RestRepository
 import gdl.dreamteam.skynet.R
-import gdl.dreamteam.skynet.databinding.FanBinding
 import gdl.dreamteam.skynet.databinding.LightsBinding
 
 /**
