@@ -1,0 +1,184 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+    <android.widget.RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/colorNormal"
+        tools:context="gdl.dreamteam.skynet.Activities.ClientsActivity">
+
+        <!-- Title -->
+        <RelativeLayout
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="18dp"
+            android:padding="5dip"
+            android:id="@+id/relativeLayout"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentStart="true">
+            <LinearLayout
+                android:id="@+id/thumbnail"
+                android:orientation="vertical"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignParentLeft="true"
+                android:layout_marginLeft="25dp"
+                android:layout_marginRight="25dp"
+                android:padding="3dip">
+                <TextView
+                    android:id="@+id/titleMain"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="Edit"
+                    android:textColor="@color/colorPrimary"
+                    android:textSize="30sp"
+                    android:textStyle="bold"
+                    android:typeface="sans"
+                    android:textAlignment="center"/>
+                <TextView
+                    android:id="@+id/titleMain2"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="Zone's Name"
+                    android:textColor="@color/colorPrimary"
+                    android:textSize="30sp"
+                    android:typeface="sans"
+                    android:textAlignment="center"/>
+            </LinearLayout>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/thumbnail"
+                android:layout_marginTop="30dp">
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:background="@android:color/darker_gray"/>
+            </LinearLayout>
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:padding="5dip"
+            android:id="@+id/relativeLayout1"
+            android:background="@color/colorNormal"
+            android:layout_below="@+id/relativeLayout"
+            android:layout_alignParentEnd="true">
+            <LinearLayout
+                android:id="@+id/thumbnail1"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignParentLeft="true"
+                android:layout_marginLeft="15dp"
+                android:layout_marginRight="15dp"
+                android:paddingTop="20dip"
+                android:paddingBottom="10dip"
+                android:paddingLeft="15dip"
+                android:paddingRight="15dip">
+                <TextView
+                    android:id="@+id/title7"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Current Name"
+                    android:layout_weight="1"
+                    android:textColor="#040404"
+                    android:textSize="20sp"
+                    android:typeface="sans"
+                    android:textAlignment="textStart"/>
+
+            <TextView
+                android:id="@+id/textName"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Living Room"
+                android:textSize="20sp"
+                android:layout_weight="1"/>
+            </LinearLayout>
+
+        </RelativeLayout>
+
+
+        <RelativeLayout
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:padding="5dip"
+            android:id="@+id/relativeLayout2"
+            android:background="@color/colorNormal"
+            android:layout_below="@+id/relativeLayout1"
+            android:layout_alignParentEnd="true">
+            <LinearLayout
+                android:id="@+id/thumbnail2"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignParentLeft="true"
+                android:layout_marginLeft="15dp"
+                android:layout_marginRight="15dp"
+                android:paddingTop="10dip"
+                android:paddingBottom="20dip"
+                android:paddingLeft="15dip"
+                android:paddingRight="15dip">
+                <TextView
+                    android:id="@+id/title8"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="New Name"
+                    android:layout_weight="1"
+                    android:textColor="#040404"
+                    android:textSize="20sp"
+                    android:typeface="sans"
+                    android:textAlignment="textStart"/>
+
+                <EditText
+                    android:id="@+id/editName"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:hint="New Name"
+                    android:textAlignment="center"
+                    android:textStyle="italic"
+                    android:layout_weight="1"/>
+            </LinearLayout>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/thumbnail2"
+                android:layout_marginTop="5dp">
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:background="@color/colorHint"/>
+            </LinearLayout>
+
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:id="@+id/relativeLayout3"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="5dip"
+            android:layout_below="@+id/relativeLayout2"
+            android:layout_marginTop="10dp"
+            android:layout_alignParentStart="true">
+            <Button
+                android:id="@+id/queueButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Save Settings"
+                android:layout_alignParentTop="true"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="10dp"
+                android:background="@drawable/custom_button"
+                android:padding="10dp"
+                android:textSize="15sp"
+                android:textColor="@color/colorNormal"
+                android:textStyle="bold"/>
+
+        </RelativeLayout>
+
+    </android.widget.RelativeLayout>
+</layout>
