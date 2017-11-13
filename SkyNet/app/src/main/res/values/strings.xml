@@ -4,5 +4,5 @@
     <string name="com_auth0_client_secret">nhAtKmywk-3M2_wUmTOk06YRuOyfLliTPCEGFYf8AJMPyf1Lzew1CFNwaXbWTvNC</string>
     <string name="com_auth0_domain">https://skynetgdl.auth0.com</string>
     <string name="queueConnectionString">DefaultEndpointsProtocol=https;AccountName=skynetgdl;AccountKey=KVJGcGdkiUg6rhDyDbvbgb5YfCf3zaQX3z78K5YFrW4zmjaGzAnUlZwCna4k7nhuq9sZU6uqb7dHdi3S5EODvw==;EndpointSuffix=core.windows.net</string>
-    <string name="queueName">queue1</string>
+    <string name="queueName">mainqueue</string>
 </resources>

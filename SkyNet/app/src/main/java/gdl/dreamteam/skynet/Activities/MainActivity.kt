@@ -2,6 +2,7 @@ package gdl.dreamteam.skynet.Activities
 
 import android.content.Intent
 import android.databinding.DataBindingUtil
+import android.media.MediaPlayer
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import android.os.Handler
@@ -15,6 +16,7 @@ import gdl.dreamteam.skynet.Bindings.LoginBinding
 import gdl.dreamteam.skynet.Exceptions.ForbiddenException
 import gdl.dreamteam.skynet.Exceptions.InternalErrorException
 import gdl.dreamteam.skynet.Exceptions.UnauthorizedException
+import gdl.dreamteam.skynet.Extensions.bork
 import gdl.dreamteam.skynet.Extensions.longToast
 import gdl.dreamteam.skynet.Extensions.shortToast
 import gdl.dreamteam.skynet.Models.*
@@ -43,8 +45,9 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun parseZone(zones: Array<Zone>?) {
+        bork()
         val intent = Intent(this, ZonesActivity::class.java)
-        val rawZones = RestRepository.gson.toJson(zones, arrayOf(Zone)::class.java)
+        val rawZones = RestRepository.gson.toJson(zones, Array<Zone>::class.java)
         intent.putExtra("zones", rawZones)
         uiThread.post {
             loginButton.isEnabled = true
@@ -95,13 +98,12 @@ class MainActivity : AppCompatActivity() {
         val password: String? = binding.login.password
         if (!validateForm(username, password)) return
         LoginService.setup(applicationContext)
-        CompletableFuture.supplyAsync { uiThread.post { progressBar.visibility = View.VISIBLE }}
-        .thenCompose { _ ->
-            LoginService.login(
-                username as String,
-                password as String
-            )
-        }
+        progressBar.visibility = View.VISIBLE
+        shortToast("Logging In...")
+        LoginService.login(
+            username as String,
+            password as String
+        )
         .thenApply { dataRepository.getZone().get() }
         .thenApply { zones -> parseZone(zones)}
 
