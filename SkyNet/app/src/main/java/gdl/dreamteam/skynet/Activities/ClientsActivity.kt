@@ -17,6 +17,7 @@ import gdl.dreamteam.skynet.Others.RestRepository
 import gdl.dreamteam.skynet.Others.SettingsService
 
 import gdl.dreamteam.skynet.R
+import kotlinx.android.synthetic.main.activity_clients.*
 import java.net.URI
 
 class ClientsActivity : AppCompatActivity() {
@@ -92,7 +93,7 @@ class ClientsActivity : AppCompatActivity() {
         Log.wtf("zone", rawZone)
         zone = RestRepository.gson.fromJson(rawZone, Zone::class.java)
 
-        title.text = zone.name
+        titleMain.text = zone.name
 
         clients.add(findViewById(R.id.linearLayout1) as LinearLayout)
         clients.add(findViewById(R.id.linearLayout2) as LinearLayout)
