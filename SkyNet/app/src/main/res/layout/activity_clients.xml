@@ -50,6 +50,20 @@
                 android:textSize="30sp"
                 android:typeface="sans"
                 android:textAlignment="center"/>
+            <Button
+                android:id="@+id/queueButton"
+                android:layout_width="wrap_content"
+                android:layout_height="40dp"
+                android:layout_alignParentTop="true"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="10dp"
+                android:background="@drawable/custom_edit_name_button"
+                android:padding="5dp"
+                android:text="Edit Name"
+                android:textColor="@color/colorNormal"
+                android:textSize="12sp"
+                android:textStyle="bold"
+                android:layout_gravity="center"/>
         </LinearLayout>
     </RelativeLayout>
 

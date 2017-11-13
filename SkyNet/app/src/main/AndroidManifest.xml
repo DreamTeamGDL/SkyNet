@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-          xmlns:tools="http://schemas.android.com/tools"
-          package="gdl.dreamteam.skynet">
+    xmlns:tools="http://schemas.android.com/tools"
+    package="gdl.dreamteam.skynet">
+
     <uses-permission android:name="android.permission.INTERNET" />
 
     <application
@@ -11,16 +12,19 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".Activities.MainActivity" android:theme="@style/Theme.AppCompat.Light.NoActionBar">
+        <activity
+            android:name=".Activities.MainActivity"
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
+
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".Activities.ClientsActivity"></activity>
-        <activity android:name=".Activities.DeviceActivity"></activity>
-        <activity android:name=".Activities.ZonesActivity"></activity>
-
+        <activity android:name=".Activities.ClientsActivity" />
+        <activity android:name=".Activities.DeviceActivity" />
+        <activity android:name=".Activities.ZonesActivity" />
+        <activity android:name=".Activities.EditNameActivity"></activity>
     </application>
 
 </manifest>
