@@ -21,8 +21,12 @@ object LoginService {
     private lateinit var clientId: String
     private lateinit var domain: String
     private lateinit var clientSecret: String
-    private lateinit var credentials: LoginResponse
+    private var credentials: LoginResponse
     private val grantType: String = "password"
+
+    init {
+        credentials = LoginResponse("","password", 123)
+    }
 
     fun setup(context: Context) {
         clientId = context.getString(R.string.com_auth0_client_id)

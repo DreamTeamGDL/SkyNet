@@ -63,6 +63,7 @@
                 android:textAlignment="center"/>
 
             <Button
+                android:onClick="editClicked"
                 android:id="@+id/queueButton"
                 android:layout_width="wrap_content"
                 android:layout_height="40dp"

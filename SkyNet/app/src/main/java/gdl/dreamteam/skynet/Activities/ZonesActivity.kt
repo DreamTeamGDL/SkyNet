@@ -1,11 +1,15 @@
 package gdl.dreamteam.skynet.Activities
 
 import android.content.Intent
+import android.net.Uri
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
+import android.support.v7.widget.Toolbar
 import android.util.Log
+import android.view.Menu
+import android.view.MenuItem
 import android.view.View
 
 import gdl.dreamteam.skynet.R
@@ -19,19 +23,61 @@ import gdl.dreamteam.skynet.Extensions.longToast
 import gdl.dreamteam.skynet.Extensions.shortToast
 import gdl.dreamteam.skynet.Models.Client
 import gdl.dreamteam.skynet.Models.Zone
+import gdl.dreamteam.skynet.Others.LoginService
 import gdl.dreamteam.skynet.Others.RestRepository
+import gdl.dreamteam.skynet.Others.SettingsService
 
 
 class ZonesActivity : AppCompatActivity() {
 
     private val repository = RestRepository()
     private val uiThread = Handler(Looper.getMainLooper())
+    private lateinit var settingsService : SettingsService
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_zones)
 
         if (intent.hasExtra("zones")){ loadZones(intent) }
+
+        val toolbar = findViewById(R.id.toolBar2) as Toolbar
+        setSupportActionBar(toolbar)
+        assert(supportActionBar != null)
+        supportActionBar?.setDisplayShowTitleEnabled(false)
+
+        settingsService = SettingsService(applicationContext)
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
+        menuInflater.inflate(R.menu.menu_main, menu)
+        return true
+    }
+
+    private fun clearToken(){
+        LoginService.accessToken = ""
+        settingsService.saveString("Token", "")
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem?): Boolean {
+        when(item?.itemId){
+            R.id.action_settings -> signOut()
+            R.id.supportRequired -> launchPhone()
+        }
+
+        return true
+    }
+
+    private fun launchPhone(){
+        val intent = Intent(Intent.ACTION_DIAL, Uri.parse("tel://+523519134806"))
+        startActivity(intent)
+    }
+
+    private fun signOut(){
+        clearToken()
+
+        val i = Intent(this, MainActivity::class.java)
+        i.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
+        startActivity(i)
     }
 
     private fun loadZones(intent: Intent){

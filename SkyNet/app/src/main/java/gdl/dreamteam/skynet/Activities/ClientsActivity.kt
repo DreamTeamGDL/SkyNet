@@ -1,5 +1,6 @@
 package gdl.dreamteam.skynet.Activities
 
+import android.app.Activity
 import android.content.Intent
 import android.net.Uri
 import android.support.v7.app.AppCompatActivity
@@ -9,6 +10,7 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.Menu
 import android.view.MenuItem
+import android.view.View
 import android.widget.LinearLayout
 import android.widget.TextView
 import gdl.dreamteam.skynet.Models.*
@@ -45,7 +47,7 @@ class ClientsActivity : AppCompatActivity() {
     }
 
     private fun loadElements(intent: Intent, title: TextView) {
-        if (intent.hasExtra("zone")) loadElements(intent)
+        if (intent.hasExtra("zone")) load(intent, title)
 
         val toolbar = findViewById(R.id.toolBar) as Toolbar
         setSupportActionBar(toolbar)
@@ -88,7 +90,7 @@ class ClientsActivity : AppCompatActivity() {
     }
 
 
-    private fun loadElements(intent: Intent) {
+    private fun load(intent: Intent, title: TextView) {
         val rawZone = intent.extras.getString("zone")
         Log.wtf("zone", rawZone)
         zone = RestRepository.gson.fromJson(rawZone, Zone::class.java)
@@ -125,6 +127,13 @@ class ClientsActivity : AppCompatActivity() {
         }
     }
 
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        if(resultCode == Activity.RESULT_OK){
+            val title = findViewById(R.id.titleMain) as TextView
+            title.text = intent.getStringExtra("newName")
+        }
+    }
+
     private fun <T> extractDeviceNames(zone: Zone, deviceType: Class<T>): List<String> {
         val result = ArrayList<String>()
             for (client in zone.clients) {
@@ -150,5 +159,11 @@ class ClientsActivity : AppCompatActivity() {
         return Pair(null, "")
     }
 
+    fun editClicked(v: View){
+        val intent = Intent(this, EditNameActivity::class.java)
+        intent.putExtra("zoneName", zone.name)
+        intent.putExtra("zoneID", zone.id.toString())
+        startActivityForResult(intent, 0)
+    }
 
 }

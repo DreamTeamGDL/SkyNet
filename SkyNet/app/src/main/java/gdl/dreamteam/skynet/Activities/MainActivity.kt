@@ -46,6 +46,17 @@ class MainActivity : AppCompatActivity() {
         progressBar = findViewById(R.id.progressBar) as ProgressBar
         loginButton = findViewById(R.id.loginButton) as Button
         settingsService = SettingsService(applicationContext)
+
+        val token = settingsService.getString("Token")
+        if(!token.isEmpty()){
+            navigateToZones(token)
+        }
+    }
+
+    private fun navigateToZones(token: String){
+        LoginService.accessToken = token
+        dataRepository.getZone()
+        .thenApply { zone -> parseZone(zone) }
     }
 
     private fun parseZone(zones: Array<Zone>?) {
