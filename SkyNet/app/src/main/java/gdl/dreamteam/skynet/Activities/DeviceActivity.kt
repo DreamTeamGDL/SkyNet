@@ -15,6 +15,7 @@ import gdl.dreamteam.skynet.Bindings.AbstractDeviceBinding
 import gdl.dreamteam.skynet.Bindings.DeviceLightsBinding
 import gdl.dreamteam.skynet.Extensions.bork
 import gdl.dreamteam.skynet.Extensions.shortToast
+import gdl.dreamteam.skynet.Fragments.DeviceCameraFragment
 import gdl.dreamteam.skynet.Fragments.DeviceFanFragment
 import gdl.dreamteam.skynet.Fragments.DeviceFragmentListener
 import gdl.dreamteam.skynet.Fragments.DeviceLightsFragment
@@ -40,7 +41,7 @@ class DeviceActivity : FragmentActivity(), DeviceFragmentListener {
     companion object {
         const val DEVICE_TYPE_FAN = "Fan"
         const val DEVICE_TYPE_LIGHTS = "Light"
-        // const val DEVICE_TYPE_CAMERAS = "Cameras"
+        const val DEVICE_TYPE_CAMERA = "Camera"
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -62,6 +63,7 @@ class DeviceActivity : FragmentActivity(), DeviceFragmentListener {
                 device.name,
                 device.data.javaClass.simpleName
             )
+            Log.wtf("DEVICE", device.data.toString())
             addFragment(device.data.javaClass.simpleName, device)
         }
 
@@ -80,6 +82,10 @@ class DeviceActivity : FragmentActivity(), DeviceFragmentListener {
             DEVICE_TYPE_LIGHTS -> {
                 val data = RestRepository.gson.toJson(device.data, Light::class.java)
                 fragment = DeviceLightsFragment.newInstance(data)
+            }
+            DEVICE_TYPE_CAMERA -> {
+                val data = RestRepository.gson.toJson(device.data, Camera::class.java)
+                fragment = DeviceCameraFragment.newInstance(data)
             }
         }
 

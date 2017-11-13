@@ -16,6 +16,6 @@ fun Context.longToast(message: CharSequence) =
     Toast.makeText(this, message, Toast.LENGTH_LONG).show()
 
 fun Context.bork() {
-    val mediaPlayer = MediaPlayer.create(this, R.raw.bork)
-    mediaPlayer.start()
+    //val mediaPlayer = MediaPlayer.create(this, R.raw.bork)
+    //mediaPlayer.start()
 }
