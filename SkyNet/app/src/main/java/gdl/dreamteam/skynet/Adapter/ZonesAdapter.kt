@@ -53,7 +53,7 @@ class ZonesAdapter(private val activity: Activity, private val zones: Array<Zone
         var image = view?.findViewById<View>(R.id.image) as ImageView
 
         name.text = zones[i].name
-        image.setImageResource(zonesThumbIds[i])
+        image.setImageResource(zonesThumbIds[zones[i].imageIndex-1])
 
         return view
     }

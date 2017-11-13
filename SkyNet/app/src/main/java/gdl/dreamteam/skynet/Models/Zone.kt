@@ -8,12 +8,14 @@ import java.util.*
 class Zone (
     var id: UUID,
     var name: String,
+    var imageIndex: Int,
     var clients: Array<Client>
 ) {
     companion object {
         val mock = Zone(
             UUID.randomUUID(),
             "Living Room",
+            1,
             arrayOf(
                 Client(UUID.randomUUID(),
                     "Dragon", "Board", arrayOf(

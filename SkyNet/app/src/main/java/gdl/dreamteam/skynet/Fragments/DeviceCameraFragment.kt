@@ -24,6 +24,8 @@ import gdl.dreamteam.skynet.databinding.LightsBinding
 import android.media.MediaPlayer
 import android.net.Uri
 import android.support.customtabs.CustomTabsClient.getPackageName
+import android.util.Base64
+import android.widget.ImageView
 import android.widget.MediaController
 import android.widget.VideoView
 
@@ -68,10 +70,13 @@ class DeviceCameraFragment() : Fragment() {
 
         binding.deviceCamera = DeviceCameraBinding(arguments.getBoolean(ARG_STATUS))
 
-        val path ="android.resource://gdl.dreamteam.skynet/" + R.raw.testvideo;
-        val video = view.findViewById<VideoView>(R.id.video)
-        video.setVideoURI(Uri.parse(path))
-        video.start()
+        val image = view.findViewById<ImageView>(R.id.noVideoImage)
+        image.setImageResource(R.drawable.novideo)
+
+        //val path ="android.resource://gdl.dreamteam.skynet/" + R.raw.testvideo;
+        //val video = view.findViewById<VideoView>(R.id.video)
+        //video.setVideoURI(Uri.parse(path))
+        //video.start()
 
         return view
     }

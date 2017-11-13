@@ -14,7 +14,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content">
 
-            <!-- Status -->
+            <!-- Video -->
             <RelativeLayout
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
@@ -24,8 +24,53 @@
                 android:background="@color/colorNormal"
                 android:layout_below="@+id/relativeLayout"
                 android:layout_alignParentEnd="true">
+
+                <!--<VideoView
+                    android:id="@+id/video"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"/>-->
                 <LinearLayout
-                    android:id="@+id/thumbnail"
+                    android:id="@+id/thumbnail1"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentLeft="true"
+                    android:layout_marginLeft="15dp"
+                    android:layout_marginRight="15dp"
+                    android:paddingTop="20dip"
+                    android:paddingBottom="20dip"
+                    android:paddingLeft="15dip"
+                    android:paddingRight="15dip">
+                    <ImageView
+                        android:id="@+id/noVideoImage"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/thumbnail1"
+                    android:layout_marginTop="5dp">
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="1dp"
+                        android:background="@color/colorHint"/>
+                </LinearLayout>
+            </RelativeLayout>
+
+
+            <!-- Status -->
+            <RelativeLayout
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:padding="5dip"
+                android:id="@+id/relativeLayout2"
+                android:background="@color/colorNormal"
+                android:layout_below="@+id/relativeLayout1"
+                android:layout_alignParentEnd="true">
+                <LinearLayout
+                    android:id="@+id/thumbnail2"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_alignParentLeft="true"
@@ -56,7 +101,7 @@
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_below="@+id/thumbnail1"
+                    android:layout_below="@+id/thumbnail2"
                     android:layout_marginTop="5dp">
                     <View
                         android:layout_width="match_parent"
@@ -65,22 +110,7 @@
                 </LinearLayout>
             </RelativeLayout>
 
-            <!-- Status -->
-            <RelativeLayout
-                android:layout_width="fill_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:padding="5dip"
-                android:id="@+id/relativeLayout2"
-                android:background="@color/colorNormal"
-                android:layout_below="@+id/relativeLayout1"
-                android:layout_alignParentEnd="true">
 
-                <VideoView
-                    android:id="@+id/video"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"/>
-            </RelativeLayout>
         </RelativeLayout>
     </ScrollView>
 </layout>
