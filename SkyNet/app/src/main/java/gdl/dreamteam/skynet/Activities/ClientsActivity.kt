@@ -29,13 +29,18 @@ class ClientsActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_clients)
-        if (intent.hasExtra("zone")) loadElements(intent)
+        val title = findViewById(R.id.titleMain) as TextView
+        if (intent.hasExtra("zone")) loadElements(intent, title)
+
+
     }
 
-    private fun loadElements(intent: Intent) {
+    private fun loadElements(intent: Intent, title: TextView) {
         val rawZone = intent.extras.getString("zone")
         Log.wtf("zone", rawZone)
         zone = RestRepository.gson.fromJson(rawZone, Zone::class.java)
+
+        title.text = zone.name
 
         clients.add(findViewById(R.id.linearLayout1) as LinearLayout)
         clients.add(findViewById(R.id.linearLayout2) as LinearLayout)
@@ -51,13 +56,15 @@ class ClientsActivity : AppCompatActivity() {
             val layout = clients[i]
             val content = values[i]
             val deviceType = deviceTypes[i]
-            for (item in content){
+            for (item in content) {
                 val view = inflater.inflate(R.layout.item_clients, layout, false) as TextView
                 view.text = item
                 view.setOnClickListener {
                     val intent = Intent(this, DeviceActivity::class.java)
-                    val rawJson = RestRepository.gson.toJson(findDevice(zone, item, deviceType))
+                    val (device, client) = findDevice(zone, item, deviceType)
+                    val rawJson = RestRepository.gson.toJson(device, Device::class.java)
                     intent.putExtra("device", rawJson)
+                    intent.putExtra("clientName", client)
                     startActivity(intent)
                 }
                 layout.addView(view)
@@ -78,16 +85,16 @@ class ClientsActivity : AppCompatActivity() {
         return result
     }
 
-    fun findDevice(zone: Zone, name: String, type: String): Device? {
+    fun findDevice(zone: Zone, name: String, type: String): Pair<Device?, String> {
         for (client in zone.clients) {
             for (device in client.devices) {
                 val data = device.data
                 if (name == device.name && type == data.javaClass.canonicalName) {
-                    return device
+                    return Pair(device, client.name)
                 }
             }
         }
-        return null
+        return Pair(null, "")
     }
 
 
