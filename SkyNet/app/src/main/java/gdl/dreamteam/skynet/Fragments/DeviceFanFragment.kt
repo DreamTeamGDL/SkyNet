@@ -2,22 +2,19 @@ package gdl.dreamteam.skynet.Fragments
 
 import android.app.Fragment
 import android.content.Context
+import android.databinding.DataBindingUtil
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import gdl.dreamteam.skynet.Others.RestRepository
-import gdl.dreamteam.skynet.R
-import android.support.annotation.Nullable
-import gdl.dreamteam.skynet.Models.Fan
-import android.databinding.DataBindingUtil
-import android.util.Log
 import android.widget.Button
 import gdl.dreamteam.skynet.Bindings.DeviceFanBinding
-import gdl.dreamteam.skynet.Models.ActionMessage
-import gdl.dreamteam.skynet.Others.QueueService
+import gdl.dreamteam.skynet.Extensions.shortToast
+import gdl.dreamteam.skynet.Models.Fan
+import gdl.dreamteam.skynet.Others.RestRepository
+import gdl.dreamteam.skynet.R
 import gdl.dreamteam.skynet.databinding.FanBinding
-import java.util.*
 
 
 /**
@@ -27,7 +24,7 @@ import java.util.*
 
 class DeviceFanFragment : Fragment() {
 
-    private lateinit var mListener: OnFragmentInteractionListener
+    private lateinit var mListener: DeviceFragmentListener
     private lateinit var binding: FanBinding
 
     // Factory method to create an instance of this fragment
@@ -37,7 +34,6 @@ class DeviceFanFragment : Fragment() {
         const val ARG_TEMPERATURE = "temperature"
         const val ARG_HUMIDITY = "humidity"
         const val ARG_SPEED = "speed"
-
 
         fun newInstance(data: String): DeviceFanFragment {
             Log.d("FRAGMENT", data)
@@ -55,45 +51,35 @@ class DeviceFanFragment : Fragment() {
         }
     }
 
-    override fun onCreate(savedInstanceState: Bundle?){
-        super.onCreate(savedInstanceState)
-    }
-
     override fun onCreateView(inflater: LayoutInflater?,
-                              @Nullable container: ViewGroup?,
-                              @Nullable savedInstanceState: Bundle?): View? {
-        binding= DataBindingUtil.inflate(inflater, R.layout.fragment_device_fan, container, false)
+                              container: ViewGroup?,
+                              savedInstanceState: Bundle?): View? {
+        binding = DataBindingUtil.inflate(inflater, R.layout.fragment_device_fan, container, false)
         val view = binding.root
 
+        // TODO: Add Toast to show interaction with buttons on Save Settings
         val button = view.findViewById<Button>(R.id.queueButton)
         button.setOnClickListener {
+            activity.shortToast("Uploading new settings...")
+            button.isEnabled = false
             mListener.somethingHappened("SPEED CHANGE ${binding.deviceFan.speed}")
         }
 
         binding.deviceFan = DeviceFanBinding(
-                arguments.getBoolean(ARG_STATUS),
-                arguments.getFloat(ARG_TEMPERATURE),
-                arguments.getFloat(ARG_HUMIDITY),
-                arguments.getInt(ARG_SPEED)
+            arguments.getBoolean(ARG_STATUS),
+            arguments.getFloat(ARG_TEMPERATURE),
+            arguments.getFloat(ARG_HUMIDITY),
+            arguments.getInt(ARG_SPEED)
         )
         return view
     }
 
     override fun onAttach(context: Context?) {
         super.onAttach(context)
-        if (context is OnFragmentInteractionListener) {
+        if (context is DeviceFragmentListener) {
             mListener = context
         } else {
             throw RuntimeException(context.toString() + " must implement OnFragmentInteractionListener")
         }
     }
-
-    override fun onDetach() {
-        super.onDetach()
-    }
-
-    interface OnFragmentInteractionListener {
-        fun somethingHappened(message: String)
-    }
-
 }

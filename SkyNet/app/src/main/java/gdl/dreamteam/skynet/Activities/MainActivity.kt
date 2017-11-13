@@ -2,6 +2,7 @@ package gdl.dreamteam.skynet.Activities
 
 import android.content.Intent
 import android.databinding.DataBindingUtil
+import android.media.MediaPlayer
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import android.os.Handler
@@ -16,6 +17,7 @@ import gdl.dreamteam.skynet.Bindings.LoginBinding
 import gdl.dreamteam.skynet.Exceptions.ForbiddenException
 import gdl.dreamteam.skynet.Exceptions.InternalErrorException
 import gdl.dreamteam.skynet.Exceptions.UnauthorizedException
+import gdl.dreamteam.skynet.Extensions.bork
 import gdl.dreamteam.skynet.Extensions.longToast
 import gdl.dreamteam.skynet.Extensions.shortToast
 import gdl.dreamteam.skynet.Models.*
@@ -46,10 +48,11 @@ class MainActivity : AppCompatActivity() {
         settingsService = SettingsService(applicationContext)
     }
 
-    private fun parseZone(zone: Zone?) {
-        val intent = Intent(this, ClientsActivity::class.java)
-        val rawZone = RestRepository.gson.toJson(zone, Zone::class.java)
-        intent.putExtra("zone", rawZone)
+    private fun parseZone(zones: Array<Zone>?) {
+        bork()
+        val intent = Intent(this, ZonesActivity::class.java)
+        val rawZones = RestRepository.gson.toJson(zones, Array<Zone>::class.java)
+        intent.putExtra("zones", rawZones)
         uiThread.post {
             loginButton.isEnabled = true
             progressBar.visibility = View.INVISIBLE
@@ -100,14 +103,15 @@ class MainActivity : AppCompatActivity() {
         if (!validateForm(username, password)) return
         LoginService.setup(applicationContext)
         progressBar.visibility = View.VISIBLE
-        loginButton.isEnabled = false
+        shortToast("Logging In...")
         LoginService.login(
             username as String,
             password as String
         )
         .thenApply { loginResponse -> settingsService.saveString("Token", loginResponse.access_token) }
-        .thenApply { dataRepository.getZone("livingroom").get() }
-        .thenApply { zone -> parseZone(zone)}
+        .thenApply { dataRepository.getZone().get() }
+        .thenApply { zones -> parseZone(zones)}
+
         .exceptionally { throwable -> handleExceptions(throwable)}
     }
 }

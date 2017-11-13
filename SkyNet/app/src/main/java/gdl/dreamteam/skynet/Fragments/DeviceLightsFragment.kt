@@ -4,18 +4,17 @@ import android.app.Fragment
 import android.content.Context
 import android.databinding.DataBindingUtil
 import android.os.Bundle
-import android.support.annotation.Nullable
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import gdl.dreamteam.skynet.Bindings.DeviceFanBinding
+import android.widget.Button
 import gdl.dreamteam.skynet.Bindings.DeviceLightsBinding
+import gdl.dreamteam.skynet.Extensions.shortToast
 import gdl.dreamteam.skynet.Models.Fan
 import gdl.dreamteam.skynet.Models.Light
 import gdl.dreamteam.skynet.Others.RestRepository
 import gdl.dreamteam.skynet.R
-import gdl.dreamteam.skynet.databinding.FanBinding
 import gdl.dreamteam.skynet.databinding.LightsBinding
 
 /**
@@ -25,12 +24,7 @@ import gdl.dreamteam.skynet.databinding.LightsBinding
 class DeviceLightsFragment : Fragment() {
 
 
-    private lateinit var mListener: OnFragmentInteractionListener
-
-    // Empty Constructor
-    fun DeviceFanFragment(){
-
-    }
+    private lateinit var mListener: DeviceFragmentListener
 
     // Factory method to create an instance of this fragment
     companion object {
@@ -54,13 +48,9 @@ class DeviceLightsFragment : Fragment() {
         }
     }
 
-    override fun onCreate(savedInstanceState: Bundle?){
-        super.onCreate(savedInstanceState);
-    }
-
     override fun onCreateView(inflater: LayoutInflater?,
-                              @Nullable container: ViewGroup?,
-                              @Nullable savedInstanceState: Bundle?): View? {
+                              container: ViewGroup?,
+                              savedInstanceState: Bundle?): View? {
 
         val binding: LightsBinding = DataBindingUtil.inflate(inflater, R.layout.fragment_device_lights, container, false)
         val view = binding.root
@@ -70,28 +60,31 @@ class DeviceLightsFragment : Fragment() {
         val energy = (voltage * timeOn).toString() + " KwH/day"
 
         binding.deviceLights = DeviceLightsBinding(
-                arguments.getBoolean(ARG_STATUS),
-                energy
+            arguments.getBoolean(ARG_STATUS),
+            energy
         )
+
+        val button = view.findViewById<Button>(R.id.saveSettings)
+        button.setOnClickListener {
+            activity.shortToast("Uploading new settings...")
+            button.isEnabled = false
+            val status = if (binding.deviceLights.status) "TRUE" else "FALSE"
+            mListener.somethingHappened(status)
+        }
+
+
+        // TODO: Add Toast to show interaction with buttons on Save Settings
+
         return view
     }
 
     override fun onAttach(context: Context?) {
         super.onAttach(context)
-        if (context is OnFragmentInteractionListener) {
+        if (context is DeviceFragmentListener) {
             mListener = context
         } else {
             throw RuntimeException(context.toString() + " must implement OnFragmentInteractionListener")
         }
-    }
-
-    override fun onDetach() {
-        super.onDetach()
-    }
-
-
-    interface OnFragmentInteractionListener {
-        fun somethingHappened(message: String)
     }
 
 }
