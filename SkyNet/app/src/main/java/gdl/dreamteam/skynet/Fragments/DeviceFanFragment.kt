@@ -66,10 +66,10 @@ class DeviceFanFragment : Fragment() {
         }
 
         binding.deviceFan = DeviceFanBinding(
-                arguments.getBoolean(ARG_STATUS),
-                arguments.getFloat(ARG_TEMPERATURE),
-                arguments.getFloat(ARG_HUMIDITY),
-                arguments.getInt(ARG_SPEED)
+            arguments.getBoolean(ARG_STATUS),
+            arguments.getFloat(ARG_TEMPERATURE),
+            arguments.getFloat(ARG_HUMIDITY),
+            arguments.getInt(ARG_SPEED)
         )
         return view
     }

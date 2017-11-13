@@ -16,6 +16,7 @@ import gdl.dreamteam.skynet.Bindings.LoginBinding
 import gdl.dreamteam.skynet.Exceptions.ForbiddenException
 import gdl.dreamteam.skynet.Exceptions.InternalErrorException
 import gdl.dreamteam.skynet.Exceptions.UnauthorizedException
+import gdl.dreamteam.skynet.Extensions.bork
 import gdl.dreamteam.skynet.Extensions.longToast
 import gdl.dreamteam.skynet.Extensions.shortToast
 import gdl.dreamteam.skynet.Models.*
@@ -44,8 +45,7 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun parseZone(zones: Array<Zone>?) {
-        val mediaPlayer = MediaPlayer.create(this, R.raw.bork)
-        mediaPlayer.start()
+        bork()
         val intent = Intent(this, ZonesActivity::class.java)
         val rawZones = RestRepository.gson.toJson(zones, Array<Zone>::class.java)
         intent.putExtra("zones", rawZones)
