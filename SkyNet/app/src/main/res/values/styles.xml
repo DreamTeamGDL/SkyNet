@@ -11,9 +11,14 @@
         <item name="android:colorForeground">@color/colorForeground</item>
     </style>
 
+
     <style name="AppThemeLogIn" parent="Theme.AppCompat.Light.NoActionBar">
         <item name="android:textColor">@color/colorNormal</item>
         <item name="colorPrimary">@color/colorPrimary</item>
     </style>
+
+    <style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
+
+    <style name="AppTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
 
 </resources>

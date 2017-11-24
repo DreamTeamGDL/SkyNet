@@ -25,6 +25,7 @@ import android.media.MediaPlayer
 import android.net.Uri
 import android.support.customtabs.CustomTabsClient.getPackageName
 import android.util.Base64
+import android.webkit.WebView
 import android.widget.ImageView
 import android.widget.MediaController
 import android.widget.VideoView
@@ -69,8 +70,10 @@ class DeviceCameraFragment() : Fragment() {
         val view = binding.root
 
         binding.deviceCamera = DeviceCameraBinding(arguments.getBoolean(ARG_STATUS))
-        val image = view.findViewById<ImageView>(R.id.noVideoImage)
-        image.setImageResource(R.drawable.novideo)
+        // val image = view.findViewById<ImageView>(R.id.noVideoImage)
+        // image.setImageResource(R.drawable.novideo)
+        val web = view.findViewById<WebView>(R.id.video)
+        web.loadUrl("http://www.adultswim.com/utilities/as-player?videoID=r0xw2u30R3GchW27yVqlug")
 
         return view
     }
@@ -84,6 +87,4 @@ class DeviceCameraFragment() : Fragment() {
             throw RuntimeException(context.toString() + " must implement OnFragmentInteractionListener")
         }
     }
-
-
 }
