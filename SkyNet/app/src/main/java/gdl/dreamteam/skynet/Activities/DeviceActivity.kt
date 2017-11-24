@@ -1,6 +1,7 @@
 package gdl.dreamteam.skynet.Activities
 
 import android.app.Fragment
+import android.app.PendingIntent.getActivity
 import android.content.ComponentName
 import android.content.Intent
 import android.databinding.DataBindingUtil
@@ -8,8 +9,11 @@ import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
+import android.support.design.internal.NavigationMenuItemView
 import android.support.v4.app.FragmentActivity
+import android.support.v7.widget.Toolbar
 import android.util.Log
+import android.widget.TextView
 import android.widget.Toast
 import gdl.dreamteam.skynet.Bindings.AbstractDeviceBinding
 import gdl.dreamteam.skynet.Bindings.DeviceLightsBinding
@@ -23,9 +27,11 @@ import gdl.dreamteam.skynet.Models.*
 import gdl.dreamteam.skynet.Others.LoginService
 import gdl.dreamteam.skynet.Others.QueueService
 import gdl.dreamteam.skynet.Others.RestRepository
+import gdl.dreamteam.skynet.Others.SettingsService
 
 import gdl.dreamteam.skynet.R
 import gdl.dreamteam.skynet.databinding.DeviceBinding
+import java.lang.System.load
 import java.util.*
 import java.util.concurrent.CompletableFuture
 
@@ -71,6 +77,7 @@ class DeviceActivity : FragmentActivity(), DeviceFragmentListener {
             clientName = intent.extras.getString("clientName")
         }
     }
+
 
     private fun addFragment(type: String, device: Device) {
         val transaction = fragmentManager.beginTransaction()

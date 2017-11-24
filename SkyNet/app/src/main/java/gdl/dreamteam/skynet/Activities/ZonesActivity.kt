@@ -6,6 +6,8 @@ import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
+import android.support.design.widget.NavigationView
+import android.support.v4.view.GravityCompat
 import android.support.v7.widget.Toolbar
 import android.util.Log
 import android.view.Menu
@@ -19,6 +21,7 @@ import android.widget.AdapterView.OnItemClickListener
 import android.widget.GridView
 import com.google.gson.reflect.TypeToken
 import gdl.dreamteam.skynet.Adapter.ZonesAdapter
+import gdl.dreamteam.skynet.Extensions.bork
 import gdl.dreamteam.skynet.Extensions.longToast
 import gdl.dreamteam.skynet.Extensions.shortToast
 import gdl.dreamteam.skynet.Models.Client
@@ -44,40 +47,9 @@ class ZonesActivity : AppCompatActivity() {
         setSupportActionBar(toolbar)
         assert(supportActionBar != null)
         supportActionBar?.setDisplayShowTitleEnabled(false)
+        supportActionBar?.setBackgroundDrawable(getDrawable(R.drawable.custom_toolbar))
 
         settingsService = SettingsService(applicationContext)
-    }
-
-    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
-        menuInflater.inflate(R.menu.menu_main, menu)
-        return true
-    }
-
-    private fun clearToken(){
-        LoginService.accessToken = ""
-        settingsService.saveString("Token", "")
-    }
-
-    override fun onOptionsItemSelected(item: MenuItem?): Boolean {
-        when(item?.itemId){
-            R.id.action_settings -> signOut()
-            R.id.supportRequired -> launchPhone()
-        }
-
-        return true
-    }
-
-    private fun launchPhone(){
-        val intent = Intent(Intent.ACTION_DIAL, Uri.parse("tel://+523519134806"))
-        startActivity(intent)
-    }
-
-    private fun signOut(){
-        clearToken()
-
-        val i = Intent(this, MainActivity::class.java)
-        i.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
-        startActivity(i)
     }
 
     private fun loadZones(intent: Intent){
@@ -104,6 +76,40 @@ class ZonesActivity : AppCompatActivity() {
                 return@exceptionally true
             }
         }
+    }
+
+
+    // Handle Navigation
+    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
+        menuInflater.inflate(R.menu.menu_main, menu)
+        return true
+    }
+    override fun onOptionsItemSelected(item: MenuItem?): Boolean {
+        when(item?.itemId){
+            R.id.action_settings -> signOut()
+            R.id.supportRequired -> launchPhone()
+        }
+        return true
+    }
+
+    // Options Menu
+    private fun launchPhone(){
+        val intent = Intent(Intent.ACTION_DIAL, Uri.parse("tel://+523519134806"))
+        startActivity(intent)
+    }
+    private fun signOut(){
+        clearToken()
+        val i = Intent(this, MainActivity::class.java)
+        i.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
+        startActivity(i)
+    }
+    fun easterEgg(view: View){
+        bork()
+        Toast.makeText(this, "PÓNGASE A PROGRAMAR", Toast.LENGTH_SHORT).show()
+    }
+    private fun clearToken(){
+        LoginService.accessToken = ""
+        settingsService.saveString("Token", "")
     }
 }
 

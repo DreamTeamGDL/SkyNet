@@ -1,11 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
-<TextView
+<Button
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/textView"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:text="Entrada"
-    android:padding="10dp"
-    android:textSize="15sp"/>
+    android:padding="15dp"
+    android:textSize="18sp"
+    android:textColor="@android:color/black"
+    android:background="@drawable/text_button"
+    android:textAllCaps="false"
+    android:textAlignment="textStart"
+    android:textStyle="normal"/>
+
 
 

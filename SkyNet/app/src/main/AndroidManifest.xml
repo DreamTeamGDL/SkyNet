@@ -24,7 +24,7 @@
         <activity android:name=".Activities.ClientsActivity" />
         <activity android:name=".Activities.DeviceActivity" />
         <activity android:name=".Activities.ZonesActivity" />
-        <activity android:name=".Activities.EditNameActivity"></activity>
+        <activity android:name=".Activities.EditNameActivity" />
     </application>
 
 </manifest>
