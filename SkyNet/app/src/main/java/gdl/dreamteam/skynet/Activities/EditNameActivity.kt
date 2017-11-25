@@ -39,7 +39,11 @@ class EditNameActivity : AppCompatActivity() {
 
         val intent = Intent()
         intent.putExtra("newName", newName)
-        setResult(Activity.RESULT_OK, intent)
-        finish();
+
+        restRepository.updateZoneName(zoneId, newName)
+            .thenApply {
+                setResult(Activity.RESULT_OK, intent)
+                runOnUiThread{ finish() }
+            }
     }
 }

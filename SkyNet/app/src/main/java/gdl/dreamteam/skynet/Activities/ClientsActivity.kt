@@ -16,7 +16,9 @@ import android.widget.LinearLayout
 import android.widget.TextView
 import android.widget.Toast
 import gdl.dreamteam.skynet.Extensions.bork
+import gdl.dreamteam.skynet.Extensions.shortToast
 import gdl.dreamteam.skynet.Models.*
+import gdl.dreamteam.skynet.Others.IDataRepository
 import gdl.dreamteam.skynet.Others.LoginService
 import gdl.dreamteam.skynet.Others.RestRepository
 import gdl.dreamteam.skynet.Others.SettingsService
@@ -38,15 +40,17 @@ class ClientsActivity : AppCompatActivity() {
     private val clients = ArrayList<LinearLayout>()
     private val values = ArrayList<List<String>>()
     private lateinit var zone: Zone
+    private lateinit var dataRepository: IDataRepository
     private lateinit var settingsService : SettingsService
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_clients)
+
         val title = findViewById(R.id.titleMain) as TextView
         if (intent.hasExtra("zone")) loadElements(intent, title)
 
-
+        dataRepository = RestRepository()
     }
 
     private fun loadElements(intent: Intent, title: TextView) {
@@ -85,7 +89,11 @@ class ClientsActivity : AppCompatActivity() {
 
     fun easterEgg(view: View){
         bork()
-        Toast.makeText(this, "PÓNGASE A PROGRAMAR", Toast.LENGTH_SHORT).show()
+        shortToast("PÓNGASE A PROGRAMAR")
+
+        val i = Intent(this, ZonesActivity::class.java)
+        i.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
+        startActivity(i)
     }
 
     private fun clearToken(){
