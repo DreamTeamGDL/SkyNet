@@ -101,11 +101,6 @@
                 android:background="@color/colorPrimary"
                 android:orientation="horizontal">
 
-                <View
-                    android:layout_width="match_parent"
-                    android:layout_height="1dp"
-                    android:background="@color/colorHint" />
-
                 <RelativeLayout
                     android:id="@+id/container1"
                     android:layout_width="match_parent"
@@ -151,10 +146,6 @@
                     android:background="@color/colorForeground"
                     android:orientation="vertical">
 
-                    <View
-                        android:layout_width="match_parent"
-                        android:layout_height="1dp"
-                        android:background="@color/colorHint"/>
                 </LinearLayout>
             </RelativeLayout>
 
@@ -168,10 +159,6 @@
                 android:background="@color/colorNormal"
                 android:orientation="horizontal">
 
-                <View
-                    android:layout_width="match_parent"
-                    android:layout_height="1dp"
-                    android:background="@color/colorHint" />
 
                 <RelativeLayout
                     android:id="@+id/container2"
@@ -218,11 +205,6 @@
                     android:layout_below="@id/container2"
                     android:background="@color/colorForeground"
                     android:orientation="vertical">
-
-                    <View
-                        android:layout_width="match_parent"
-                        android:layout_height="1dp"
-                        android:background="@color/colorHint" />
                 </LinearLayout>
             </RelativeLayout>
 
@@ -236,10 +218,6 @@
                 android:background="@color/colorNormal"
                 android:orientation="horizontal">
 
-                <View
-                    android:layout_width="match_parent"
-                    android:layout_height="1dp"
-                    android:background="@color/colorHint" />
 
                 <RelativeLayout
                     android:id="@+id/container3"
@@ -287,10 +265,6 @@
                     android:background="@color/colorForeground"
                     android:orientation="vertical">
 
-                    <View
-                        android:layout_width="match_parent"
-                        android:layout_height="1dp"
-                        android:background="@color/colorHint" />
                 </LinearLayout>
             </RelativeLayout>
         </RelativeLayout>

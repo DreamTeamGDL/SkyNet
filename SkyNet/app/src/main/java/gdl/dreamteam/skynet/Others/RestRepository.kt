@@ -15,7 +15,6 @@ import java.net.URLEncoder
 import java.util.concurrent.CompletableFuture
 import java.util.concurrent.CompletableFuture.supplyAsync
 import java.util.stream.Collectors
-import javax.net.ssl.HttpsURLConnection
 
 /**
  * Created by christopher on 10/09/17.
@@ -56,7 +55,7 @@ class RestRepository : IDataRepository {
         return supplyAsync{
             val json = gson.toJson(ZoneUpdate(zoneId, newName))
             val connection = URL("$url/zones")
-                    .openConnection() as HttpsURLConnection
+                    .openConnection() as HttpURLConnection
             connection.requestMethod = "PUT"
             connection.setRequestProperty("Content-Type", "application/json")
             connection.setRequestProperty("Accept", "application/json")
@@ -64,7 +63,12 @@ class RestRepository : IDataRepository {
             val streamWriter = OutputStreamWriter(connection.outputStream)
             streamWriter.write(json)
             streamWriter.close()
-            handleResponseCode(connection.responseCode) {}
+            connection.inputStream
+            handleResponseCode(connection.responseCode) {
+                val x = Log.wtf("Shit done", "ffs")
+            }
+        }.exceptionally { throwable ->
+            Log.wtf("Exception", throwable.cause)
         }
     }
 
@@ -73,7 +77,7 @@ class RestRepository : IDataRepository {
             val json: String = gson.toJson(zone)
             println(json)
             val connection = URL("$url/zones")
-                .openConnection() as HttpsURLConnection
+                .openConnection() as HttpURLConnection
             connection.requestMethod = "POST"
             connection.setRequestProperty("Content-Type", "application/json")
             connection.setRequestProperty("Accept", "application/json")
